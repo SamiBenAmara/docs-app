@@ -1,0 +1,28 @@
+.fileCardDiv {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 15px;
+    width: 150px;
+    height: 200px;
+}
+
+.fileCardDiv:hover {
+    /* opacity: 0.5; */
+    background: rgba(0,0,0,.5);
+    cursor: pointer;
+}
+
+.fileCardDiv:active {
+    background: rgba(0,0,0,.25);
+}
+
+.fileNameH1 {
+    color: white;
+}
+
+.fileNameH2 {
+    color: white;
+    margin-top: 0;
+}
