@@ -73,11 +73,11 @@
     margin-top: 60px;
 }
 
-.uploadFileInput {
+/* .uploadFileInput {
     display: none;
-}
+} */
 
-.uploadFileButton {
+/* .uploadFileButton {
     display: inline-block;
     text-align: center;
     width: 300px;
@@ -86,7 +86,7 @@
     background-color: darkorange;
     color: white;
     font-size: large;
-}
+} */
 
 .fileEditor {
     background-color: 'white';

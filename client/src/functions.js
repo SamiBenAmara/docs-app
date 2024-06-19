@@ -11,6 +11,15 @@ export const getAllUsers = async () => {
     .catch((err) => err.message);
 };
 
+// Get a list of all user names on the system
+export const getUserNames = async (email) => {
+    return axios.get(`${userUrl}/getusernames?email=${email}`)
+    .then((res) => {
+        return res.data;
+    })
+    .catch((err) => err.message);
+};
+
 // Get current users' information
 export const getUserInformation = async (userEmail) => {
     return axios.get(`${userUrl}/getuserinfo?email=${userEmail}`)
@@ -18,6 +27,24 @@ export const getUserInformation = async (userEmail) => {
         return res.data;
     })
     .catch((err) => err.message);
+};
+
+// Get a list of senders
+export const getSenders = async (email) => {
+  return axios.get(`${userUrl}/getsenders?email=${email}`)
+  .then((res) => {
+      return res.data;
+  })
+  .catch((err) => err.message);
+}
+
+// Get a list of file extensions
+export const getFileExtensions = async (email) => {
+  return axios.get(`${userUrl}/getfileextensions?email=${email}`)
+  .then((res) => {
+    return res.data;
+  })
+  .catch((err) => err.message);
 };
 
 // Signup
@@ -65,7 +92,8 @@ export const uploadFile = async (formData) => {
     .catch((err) => err.message);
 };
 
-export const sendFile = async (formData) => {
+// Send a file to another user
+export const sendFiles = async (formData) => {
     return axios.patch(`${userUrl}/sendfile`, formData)
     .then((res) => {
         return res.data;
@@ -82,8 +110,63 @@ export const getFiles = async (email) => {
     .catch((err) => err.message);
 };
 
+// Get files that are in a users inbox
+export const getInboxFiles = async (email) => {
+    return axios.get(`${userUrl}/getinbox?email=${email}`)
+    .then((res) => {
+        return res.data;
+    })
+    .catch((err) => err.message);
+};
+
+// Get files that are in a users recycling bin
+export const getRecycleBinFiles = async (email) => {
+    return axios.get(`${userUrl}/getrecycle?email=${email}`)
+    .then((res) => {
+        return res.data;
+    })
+    .catch((err) => err.message);
+};
+
+// Accept file from inbox
+export const acceptReceivedFile = async (formData) => {
+    return axios.patch(`${userUrl}/acceptfile`, formData)
+    .then((res) => {
+        return res.data;
+    })
+    .catch((err) => err.message);
+};
+
+// Reject a file that has been sent to a user
+export const rejectReceivedFile = async (formData) => {
+    return axios.delete(`${userUrl}/rejectfile`, { data: formData })
+    .then((res) => {
+        return res.data;
+    })
+    .catch((err) => err.message);
+}
+
+// Restore deleted file
+export const restoreDeletedFile = async (formData) => {
+    return axios.patch(`${userUrl}/restorefile`, formData)
+    .then((res) => {
+        return res.data;
+    })
+    .catch((err) => err.message);
+};
+
+// Save changes made to a file
 export const saveFileChanges = async (formData) => {
     return axios.patch(`${userUrl}/savefilechanges`, formData)
+    .then((res) => {
+        return res.data;
+    })
+    .catch((err) => err.message);
+};
+
+// Change the name of a file
+export const changeFileName = async (formData) => {
+    return axios.patch(`${userUrl}/editfilename`, formData)
     .then((res) => {
         return res.data;
     })

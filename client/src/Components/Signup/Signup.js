@@ -26,8 +26,11 @@ const Signup = () => {
 
         try {
             const signupSuccess = await signup(formData);
-            if (signupSuccess === 'success') {
+            if (signupSuccess.status === 'success') {
                 localStorage.setItem("userEmail", email);
+                localStorage.setItem("username", signupSuccess.username);
+                localStorage.setItem("isLoggedIn", true);
+                localStorage.setItem("userFirstName", signupSuccess.name);
                 navigate('/home');
             }
 

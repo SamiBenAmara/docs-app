@@ -23,9 +23,11 @@ const Login = () => {
 
       const loginSuccess = await loginUser(formData);
 
-      if (loginSuccess === 'success') {
+      if (loginSuccess.status === 'success') {
         localStorage.setItem("userEmail", email);
+        localStorage.setItem("username", loginSuccess.username);
         localStorage.setItem("isLoggedIn", true);
+        localStorage.setItem("userFirstName", loginSuccess.name);
         navigate('/home');
       }
 

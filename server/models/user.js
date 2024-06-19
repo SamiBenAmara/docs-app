@@ -30,6 +30,34 @@ const userSchema = new mongoose.Schema({
             data: {
                 type: String,
                 required: true
+            },
+            date: {
+                type: Date,
+                required: true
+            },
+            sender: {
+                type: String,
+                required: false
+            },
+            type: {
+                type: String,
+                required: true
+            },
+            isViewable: {
+                type: Number,
+                required: true
+            },
+            extension: {
+                type: String,
+                required: true
+            },
+            binNumber: {
+                type: Number,
+                required: true
+                // 0 - My Files
+                // 1 - Inbox
+                // 2 - Recycling (From My files)
+                // 3 - Recycling (From Inbox)
             }
         }]
     }

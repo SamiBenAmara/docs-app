@@ -7,10 +7,12 @@
     height: 475px;
     width: 300px;
     border-radius: 30px;
+    border-style: solid;
 }
 
 .signupHeader {
     margin-left: 5%;
+    font-family: sans-serif;
 }
 
 .signupButton {

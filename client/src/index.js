@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from './Components/Navbar/Navbar';
-import Home from './Components/Home/Home';
+import HomePage from './Components/HomePage/HomePage';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import EditProfilePage from './Components/EditProfilePage/EditProfilePage';
 
@@ -19,7 +19,7 @@ root.render(
         <Navbar />
         <Routes>
           <Route path="/" element={ <App /> } />
-          <Route path="/home" element={ <Home /> } />
+          <Route path="/home" element={ <HomePage /> } />
           <Route path="/editprofile" element={ <EditProfilePage /> } />
         </Routes>
       </BrowserRouter>

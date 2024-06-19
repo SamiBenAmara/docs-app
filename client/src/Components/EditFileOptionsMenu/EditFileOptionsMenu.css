@@ -1,0 +1,29 @@
+.optionsButtonContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.optionsScreenButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: none;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.optionsScreenButton:hover {
+    opacity: 0.75;
+}
+
+.optionsScreenButton:active {
+    opacity: 0.5;
+}
+
+.optionsScreenButton:disabled {
+    cursor: unset;
+    opacity: 1.0;
+}

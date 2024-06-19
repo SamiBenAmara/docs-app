@@ -30,8 +30,8 @@ const Navbar = () => {
     <>
       <div className="navBarDiv">
         <div className="docsNavBarLogoWrapper">
-          <FolderIcon fontSize='large' />
-          <h1>Docs</h1>
+          <FolderIcon fontSize='large' style={{ color: 'white' }} />
+          <h1 style={{ color: 'white', fontWeight: '400' }}>Docs</h1>
         </div>
         {isLoggedIn ? (
           <div className="navBarMenuButtonWrapper">
@@ -39,7 +39,7 @@ const Navbar = () => {
             className="navBarMenuButton"
             onClick={handleNavbarMenuClick}  
           >
-            <ArrowDropDownIcon />
+            <ArrowDropDownIcon style={{ color: 'white' }} />
           </button>
           {showMenu ? (
             <NavbarMenu setIsLoggedIn={setIsLoggedIn} setShowMenu={setShowMenu} />

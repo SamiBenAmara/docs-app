@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { uploadFile, getFiles, getAllUsers, sendFile, deleteFile, saveFileChanges } from '../../functions.js';
+import { uploadFile, getFiles, getAllUsers, sendFile, deleteFile, saveFileChanges, getInboxFiles, getRecycleBinFiles, acceptReceivedFile, rejectReceivedFile, restoreDeletedFile } from '../../functions.js';
 import { useQuery } from 'react-query';
 // import './Home.css';
 import DeleteFileMenu from '../DeleteFileMenu/DeleteFileMenu.js';
 import SendFileMenu from '../SendFileMenu/SendFileMenu.js';
 import EditPage from '../EditPage/EditPage.js';
 import HomePage from '../HomePage/HomePage.js';
+import { useMediaQuery } from '@mui/material';
 
 const Home = () => {
 
@@ -27,38 +28,52 @@ const Home = () => {
   const [fileType, setFileType] = useState('text');
   const [showSendFileMenu, setShowSendFileMenu] = useState(false);
   const [searchUsersList, setSearchUsersList] = useState([]);
-  const [searchFileList, setSearchFileList] = useState([]);
-  const [searchFileName, setSearchFileName] = useState('');
+
+  const [searchInboxFileList, setSearchInboxFileList] = useState([]);
+  const [searchInboxFileName, setSearchInboxFileName] = useState('');
+
+  const [searchRecycleFileList, setSearchRecycleFileList] = useState([]);
+  const [searchRecycleFileName, setSearchRecycleFileName] = useState('');
+
+  const [searchMyFilesFileList, setSearchMyFilesFileList] = useState([]);
+  const [searchMyFilesFileName, setSearchMyFilesFileName] = useState('');
+
   const [fileReceiverName, setFileReceiverName] = useState('');
   const [showDeleteFileMenu, setShowDeleteFileMenu] = useState(false);
 
-  const handleFileClick = (localFile) => {
+  const [newEditFileName, setNewEditFileName] = useState(file?.name.split('.')[0]);
 
-    setSearchFileName('');
+  // // 0 - my file, 1 - inbox, 2 - recycling bin
+  // const handleFileClick = (localFile, localDeleteRecycle) => {
 
-    const fileIdentifierRegex = "(base64)";
-    const localFileAllData = localFile.data;
+  //   // setSearchFileName('');
+  //   setSearchMyFilesFileName('');
+  //   setSearchInboxFileName('');
+  //   setSearchRecycleFileName('');
 
-    let base64Position = localFileAllData.search(fileIdentifierRegex);
+  //   const fileIdentifierRegex = "(base64)";
+  //   const localFileAllData = localFile.data;
 
-    let fileIdentiferInfo = localFileAllData.substring(5, base64Position - 1);
+  //   let base64Position = localFileAllData.search(fileIdentifierRegex);
 
-    let localFileData = localFileAllData.substring(base64Position + 7, localFileAllData.length);
+  //   let fileIdentiferInfo = localFileAllData.substring(5, base64Position - 1);
 
-    if (fileIdentiferInfo.substring(0, 4) === 'text') {
-      setFileType('text');
-      setFileData(localFileData);
-    } else if (fileIdentiferInfo.substring(0, 5) === 'image') {
-      setFileType('image');
-      setFileData(localFileAllData);
-    } else if (fileIdentiferInfo === 'application/pdf') {
-      setFileType('pdf');
-      setFileData(localFileAllData);
-    }
+  //   let localFileData = localFileAllData.substring(base64Position + 7, localFileAllData.length);
 
-    setFile(localFile);
-    setScreen('edit');
-  }
+  //   if (fileIdentiferInfo.substring(0, 4) === 'text') {
+  //     setFileType('text');
+  //     setFileData(localFileData);
+  //   } else if (fileIdentiferInfo.substring(0, 5) === 'image') {
+  //     setFileType('image');
+  //     setFileData(localFileAllData);
+  //   } else if (fileIdentiferInfo === 'application/pdf') {
+  //     setFileType('pdf');
+  //     setFileData(localFileAllData);
+  //   }
+
+  //   setFile(localFile);
+  //   setScreen('edit');
+  // }
 
   const navigateBack = () => {
     setScreen('home');
@@ -68,37 +83,37 @@ const Home = () => {
     setFileData('');
   }
 
-  const handleSaveFile = async () => {
+  // const handleSaveFile = async () => {
     
-    const formData = {
-      email: localStorage.getItem('userEmail'),
-      fileData: `data:text/plain;base64,${fileData}`
-    };
+  //   const formData = {
+  //     email: localStorage.getItem('userEmail'),
+  //     fileData: `data:text/plain;base64,${fileData}`
+  //   };
 
-    try {
+  //   try {
 
-      let localUpdateFileSuccess;
+  //     let localUpdateFileSuccess;
 
-      if (isNewFile) {
-        formData.fileName = newFileName;
-        localUpdateFileSuccess = await uploadFile(formData);
-      } else {
-        formData.fileName = file.name;
-        localUpdateFileSuccess = await saveFileChanges(formData);
-      }
+  //     if (isNewFile) {
+  //       formData.fileName = newFileName;
+  //       localUpdateFileSuccess = await uploadFile(formData);
+  //     } else {
+  //       formData.fileName = file.name;
+  //       localUpdateFileSuccess = await saveFileChanges(formData);
+  //     }
 
-      if (localUpdateFileSuccess === 'success') {
-        refetch();
-        setScreen('home');
-        setIsNewFile(false);
-        setFile(null);
-        setFileData('');
-      }
+  //     if (localUpdateFileSuccess === 'success') {
+  //       refetch();
+  //       setScreen('home');
+  //       setIsNewFile(false);
+  //       setFile(null);
+  //       setFileData('');
+  //     }
 
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+  // };
 
   const handleSendFile = async () => {
 
@@ -119,36 +134,37 @@ const Home = () => {
 
   };
 
-  const handleUploadFile = async (e) => {
+  // const handleUploadFile = async (e) => {
     
-    let file = e.target.files[0];
-    let fileName = file.name;
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
+  //   let localFile = e.target.files[0];
+  //   let fileName = localFile.name;
+  //   let reader = new FileReader();
+  //   reader.readAsDataURL(localFile);
 
-    reader.onload = async function () {
-      console.log(reader.result);
+  //   reader.onload = async function () {
+  //     console.log(reader.result);
 
-      try {
+  //     try {
         
-        let formData = {
-          email: localStorage.getItem('userEmail'),
-          fileName: fileName,
-          fileData: reader.result
-        }
+  //       let formData = {
+  //         email: localStorage.getItem('userEmail'),
+  //         fileName: fileName,
+  //         fileData: reader.result,
+  //         date: new Date()
+  //       }
 
-        await uploadFile(formData);
-        refetch();
+  //       await uploadFile(formData);
+  //       refetch();
 
-      } catch (err) {
-        console.log(err.message);
-      }
-    }
+  //     } catch (err) {
+  //       console.log(err.message);
+  //     }
+  //   }
 
-    reader.onerror = function (error) {
-      console.log('Error: ', error)
-    }
-  };
+  //   reader.onerror = function (error) {
+  //     console.log('Error: ', error)
+  //   }
+  // };
 
   const handleSearchForUser = (e) => {
     let localTempUserName = e.target.value;
@@ -161,95 +177,234 @@ const Home = () => {
     }
   };
 
-  const handleSearchForFile = (e) => {
+  // const handleSearchForFile = (e, binNumber) => {
 
-    let localFileName = e.target.value;
-    setSearchFileName(localFileName);
+  //   let localFileName = e.target.value;
 
-    if (localFileName === '') {
-      setSearchFileList([]);
-    } else {
-      setSearchFileList(data.filter((file) => file.name.search(`(${localFileName})`) !== -1));
-    }
+  //   if (binNumber === 0) {
+  //     setSearchMyFilesFileName(localFileName);
+  //   } else if (binNumber === 1) {
+  //     setSearchInboxFileName(localFileName);
+  //   } else if (binNumber === 2) {
+  //     setSearchRecycleFileName(localFileName);
+  //   } else {
+  //     console.log("BIN NUMBER ERROR");
+  //   }
 
-  };
+  //   // setSearchFileName(localFileName);
+
+  //   if (localFileName === '') {
+  //     // setSearchFileList([]);
+  //     setSearchMyFilesFileList([]);
+  //     setSearchInboxFileList([]);
+  //     setSearchRecycleFileList([]);
+  //   } else {
+  //     if (binNumber === 0) {
+  //       setSearchMyFilesFileList(data.filter((file) => file.name.search(`(${localFileName})`) !== -1 && file.binNumber === 0));
+  //     } else if (binNumber === 1) {
+  //       setSearchInboxFileList(data.filter((file) => file.name.search(`(${localFileName})`) !== -1 && file.binNumber === 1));
+  //     } else if (binNumber === 2) {
+  //       setSearchRecycleFileList(data.filter((file) => file.name.search(`(${localFileName})`) !== -1 && file.binNumber === 2));
+  //     } else {
+  //       console.log("BIN NUMBER ERROR");
+  //     }
+  //     // setSearchFileList(data.filter((file) => file.name.search(`(${localFileName})`) !== -1 && file.binNumber === binNumber));
+  //   }
+  // };
 
   const handleUserClick = (localUserName) => {
     setFileReceiverName(localUserName);
   };
 
-  const handleFileDelete = async () => {
+  // const handleFileDelete = async () => {
 
-    const formData = {
-      email: localStorage.getItem('userEmail'),
-      fileName: file.name
-    };
+  //   const formData = {
+  //     email: localStorage.getItem('userEmail'),
+  //     fileName: file.name,
+  //     isRecycle: true
+  //   };
 
+  //   try {
+
+  //     const localIsDeleteSuccess = await deleteFile(formData);
+  //     if (localIsDeleteSuccess === 'success') {
+  //       refetch();
+  //       setShowDeleteFileMenu(false);
+  //       setScreen('home');
+  //       setFile(null);
+  //       setFileData('');
+  //     }
+
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+  // };
+
+  const handleChangeFileName = async () => {
     try {
 
-      const localIsDeleteSuccess = await deleteFile(formData);
-      if (localIsDeleteSuccess === 'success') {
-        refetch();
-        setShowDeleteFileMenu(false);
-        setScreen('home');
-        setFile(null);
-        setFileData('');
-      }
+      // const localFormData = {
+      //   email: localStorage.getItem("userEmail"),
+      //   fileName: file.name,
+      //   newFileName: 
+      // }
 
     } catch (err) {
       console.log(err.message);
     }
+  }
 
-  };
+  // const handleAcceptFile = async () => {
+    
+  //   const formData = {
+  //     email: localStorage.getItem("userEmail"),
+  //     fileName: file.name
+  //   };
+
+  //   try {
+
+  //     const acceptFileStatus = await acceptReceivedFile(formData);
+
+  //     if (acceptFileStatus === 1) {
+  //       refetch();
+  //       setShowDeleteFileMenu(false);
+  //       setScreen('home');
+  //       setFile(null);
+  //       setFileData('');
+  //     }
+
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+
+  // };
+
+  // const handleRejectFile = async () => {
+
+  //   const formData = {
+  //     email: localStorage.getItem("userEmail"),
+  //     fileName: file.name
+  //   };
+
+  //   try {
+
+  //     const rejectFormDataStatus = await rejectReceivedFile(formData);
+
+  //     if (rejectFormDataStatus === 1) {
+  //       refetch();
+  //       setShowDeleteFileMenu(false);
+  //       setScreen('home');
+  //       setFile(null);
+  //       setFileData('');
+  //     }
+
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+
+  // };
+
+  // const handleRestoreFile = async () => {
+    
+  //   const formData = {
+  //     email: localStorage.getItem('userEmail'),
+  //     fileName: file.name
+  //   };
+
+  //   try {
+
+  //     const restoreFileSuccess = await restoreDeletedFile(formData);
+
+  //     if (restoreFileSuccess === 1) {
+  //       refetch();
+  //       setShowDeleteFileMenu(false);
+  //       setScreen('home');
+  //       setFile(null);
+  //       setFileData('');
+  //     }
+
+  //   } catch (err) {
+  //       console.log(err.message);
+  //   }
+
+  // };
 
   return (
 
     <>
-      { screen === 'home' ? (
-        <HomePage 
-          setScreen={setScreen}
-          setIsNewFile={setIsNewFile}
-          handleUploadFile={handleUploadFile}
-          fileData={data}
-          handleFileClick={handleFileClick}
-          handleSearchForFile={handleSearchForFile}
-          searchFileList={searchFileList}
-          searchFileName={searchFileName}
-        />
-      ) : (<></>) }
-
-      { screen === 'edit' ? (
-        <EditPage 
-          isNewFile={isNewFile}
-          setNewFileName={setNewFileName}
-          fileName={file?.name}
-          fileType={fileType}
-          fileData={fileData}
-          setFileData={setFileData}
-          navigateBack={navigateBack}
-          setShowDeleteFileMenu={setShowDeleteFileMenu}
-          setShowSendFileMenu={setShowSendFileMenu}
-          handleSaveFile={handleSaveFile}
-        />
-      ) : (<></>) }
-      { showSendFileMenu ? (
-        <SendFileMenu 
-          fileReceiverName={fileReceiverName} 
-          handleSearchForUser={handleSearchForUser}
-          searchUsersList={searchUsersList}
-          handleUserClick={handleUserClick}
-          handleSendFile={handleSendFile}
-          setShowSendFileMenu={setShowSendFileMenu}
-        />
-      ) : (<></>) }
-      { showDeleteFileMenu ? (
-        <DeleteFileMenu 
-          fileName={file.name} 
-          setShowDeleteFileMenu={setShowDeleteFileMenu}
-          handleFileDelete={handleFileDelete}
-        />
-      ) : (<></>) }
     </>
+
+    // <HomePage 
+    //   setScreen={setScreen}
+    //   setIsNewFile={setIsNewFile}
+    //   handleUploadFile={handleUploadFile}
+    //   fileData={data}
+    //   handleFileClick={handleFileClick}
+    //   handleSearchForFile={handleSearchForFile}
+    //   searchMyFilesFileList={searchMyFilesFileList}
+    //   searchMyFilesFileName={searchMyFilesFileName}
+    //   searchInboxFileList={searchInboxFileList}
+    //   searchInboxFileName={searchInboxFileName}
+    //   searchRecycleFileList={searchRecycleFileList}
+    //   searchRecycleFileName={searchRecycleFileName}
+    // />
+
+    // <>
+    //   { screen === 'home' ? (
+    //     <HomePage 
+    //       setScreen={setScreen}
+    //       setIsNewFile={setIsNewFile}
+    //       handleUploadFile={handleUploadFile}
+    //       fileData={data}
+    //       handleFileClick={handleFileClick}
+    //       handleSearchForFile={handleSearchForFile}
+    //       searchMyFilesFileList={searchMyFilesFileList}
+    //       searchMyFilesFileName={searchMyFilesFileName}
+    //       searchInboxFileList={searchInboxFileList}
+    //       searchInboxFileName={searchInboxFileName}
+    //       searchRecycleFileList={searchRecycleFileList}
+    //       searchRecycleFileName={searchRecycleFileName}
+    //     />
+    //   ) : (<></>) }
+
+    //   { screen === 'edit' ? (
+    //     <EditPage 
+    //       isNewFile={isNewFile}
+    //       setNewFileName={setNewFileName}
+    //       fileName={file?.name}
+    //       fileType={fileType}
+    //       fileData={fileData}
+    //       file={file}
+    //       setFileData={setFileData}
+    //       navigateBack={navigateBack}
+    //       setShowDeleteFileMenu={setShowDeleteFileMenu}
+    //       setShowSendFileMenu={setShowSendFileMenu}
+    //       handleSaveFile={handleSaveFile}
+    //       handleAcceptFile={handleAcceptFile}
+    //       handleRejectFile={handleRejectFile}
+    //       handleRestoreFile={handleRestoreFile}
+    //       newEditFileName={newEditFileName}
+    //       setNewEditFileName={setNewEditFileName}
+    //     />
+    //   ) : (<></>) }
+    //   { showSendFileMenu ? (
+    //     <SendFileMenu
+    //       fileReceiverName={fileReceiverName} 
+    //       handleSearchForUser={handleSearchForUser}
+    //       searchUsersList={searchUsersList}
+    //       handleUserClick={handleUserClick}
+    //       handleSendFile={handleSendFile}
+    //       setShowSendFileMenu={setShowSendFileMenu}
+    //     />
+    //   ) : (<></>) }
+    //   { showDeleteFileMenu ? (
+    //     <DeleteFileMenu 
+    //       fileName={file.name} 
+    //       setShowDeleteFileMenu={setShowDeleteFileMenu}
+    //       handleFileDelete={handleFileDelete}
+    //     />
+    //   ) : (<></>) }
+    // </>
   )
 }
 

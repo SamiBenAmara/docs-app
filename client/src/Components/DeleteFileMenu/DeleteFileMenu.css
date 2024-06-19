@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 300px;
+    height: 400px;
     width: 700px;
     background-color: white;
     border-radius: 30px;
@@ -25,15 +25,17 @@
 }
 
 .deleteFileMenuButtonWrapper {
-    width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
+    align-items: center;
+    height: 200px;
+    width: 100%;
 }
 
 .deleteFileMenuSendButton {
-    width: 35%;
-    height: 100px;
+    width: 75%;
+    height: 75px;
     background-color: blue;
     border-radius: 30px;
     color: white;
@@ -51,7 +53,8 @@
 }
 
 .deleteFileMenuCancelButton {
-    width: 35%;
+    width: 75%;
+    height: 75px;
     background-color: red;
     border-radius: 30px;
     color: white;

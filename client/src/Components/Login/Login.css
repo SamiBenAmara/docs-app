@@ -6,10 +6,12 @@
     height: 300px;
     width: 300px;
     border-radius: 30px;
+    border-style: solid;
 }
 
 .loginHeader {
     margin-left: 5%;
+    font-family: sans-serif;
 }
 
 .loginButton {

@@ -1,11 +1,21 @@
+.welcomeMessageWrapper {
+    width: 95%;
+    margin-left: 2.5%;
+}
+
+.welcomeMessageText {
+    font-size: 60px;
+    font-weight: 100;
+    font-family: auto;
+}
+
 .topSearchWrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: '50%';
+    width: 90%;
     z-index: 1000;
-
 }
 
 .searchWrapper {
@@ -23,40 +33,85 @@
     border-radius: 50px;
 }
 
-.addButtonWrapper {
-    margin-top: 10px;
-    margin-bottom: 25px;
+/* .addButtonWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-.addButton {
-    width: 300px;
-    padding: 15px;
+/* .addButtonWrapper {
+    margin-top: 10px;
+    margin-bottom: 25px;
+} */
+
+/*.addButton {
+    width: 110px;
+    height: 30px;
+    border: none;
     border-radius: 15px;
-    background-color: darkorange;
+    background-color: darkblue;
     color: white;
     font-size: large;
     cursor: pointer;
-}
+} */
 
-.uploadFileButton {
+/* .uploadFileButton {
     display: inline-block;
     text-align: center;
-    width: 300px;
-    padding: 15px;
+    width: 110px;
+    height: 30px;
     border-radius: 15px;
-    background-color: darkorange;
+    background-color: darkblue;
+    cursor: pointer;
     color: white;
     font-size: large;
 }
 
 .uploadFileInput {
     display: none;
-}
+} */
 
 .fileGridDiv {
-    width: 75%;
-    margin-left: 12.5%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    height: 470px;
 }
+
+.fileGridDiv::-webkit-scrollbar {
+    width: 5px;
+}
+
+.fileGridDiv::-webkit-scrollbar-track {
+    background-color: #e8e8e8;
+}
+
+.fileGridDiv::-webkit-scrollbar-thumb {
+    background-color: grey;
+}
+
+/* .inboxRecycleFileGridDiv {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    height: 190px;
+}
+
+.inboxRecycleFileGridDiv::-webkit-scrollbar {
+    width: 5px;
+}
+
+.inboxRecycleFileGridDiv::-webkit-scrollbar-track {
+    background-color: #e8e8e8;
+}
+
+.inboxRecycleFileGridDiv::-webkit-scrollbar-thumb {
+    background-color: grey;
+} */
 
 .fileListButton {
     background-color: rgb(0, 0, 0, 0);
@@ -90,4 +145,162 @@
 
 .fileSearchSuggestionListButton:active {
     opacity: 0.5;
+}
+
+/* .inboxWrapper {
+    width: 100%;
+    height: 300px;
+    border: solid;
+    border-width: 2px;
+    border-color: #e8e8e8;
+    border-radius: 25px;
+} */
+
+/* .inboxHeaderWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+} */
+
+/* .inboxIconTextWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+} */
+
+/* .inboxHorizontalLine {
+    border: none;
+    background-color: #e8e8e8;
+    height: 2px;
+    width: 95%;
+} */
+
+.recycleBinWrapper {
+    width: 100%;
+    height: 300px;
+    border: solid;
+    border-width: 2px;
+    border-color: #e8e8e8;
+    border-radius: 25px;
+}
+
+.recycleBinHeaderWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.myFilesWrapper {
+    width: 45%;
+    /* border: solid; */
+    /* border-width: 2px; */
+    border-color: #e8e8e8;
+    border-radius: 25px;
+}
+
+.myFilesHeaderWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+/* .myFilesSearchWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+} */
+
+/* .myFilesSearchWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+} */
+
+.myFilesButtonWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.myFilesDropDownButton {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 100%;
+}
+
+.myFilesDropDownButton:hover {
+    background-color: rgb(0, 0, 0, 0.25);
+}
+
+.myFilesDropDownMenuWrapper {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    border-width: thin;
+    margin-left: 300px;
+    margin-top: 175px;
+    width: 150px;
+    border-radius: 15px;
+    background-color: white;
+}
+
+.myFilesDropDownMenuButton {
+    padding: 15px;
+    border-radius: 15px;
+    border: none;
+    font-size: 15px;
+    font-weight: 100;
+    background-color: white;
+    cursor: pointer;
+}
+
+.myFilesDropDownMenuButton:hover {
+    background-color: rgb(0, 0, 0, 0.25);
+}
+
+/* .uploadFileButtonDropDown {
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.uploadFileButtonDropDown:hover {
+    background-color: rgb(0, 0, 0, 0.25);
+} */
+
+.uploadFileInputDropDown {
+    display: none;
+}
+
+.inboxRecycleWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    justify-content: space-between;
+}
+
+.fileDisplayWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 95%;
+    margin-left: 2.5%;
+    height: 625px;
+}
+
+.fileListButtonInteriorWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
 }

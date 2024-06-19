@@ -1,52 +1,101 @@
-import React from 'react';
+import React, { useState } from 'react';
+import SearchBar from '../SearchBar/SearchBar';
+import { getUserNames, sendFiles } from '../../functions.js';
+import { useQuery } from 'react-query';
+import Select from 'react-select';
 import './SendFileMenu.css';
 
-const SendFileMenu = ({ fileReceiverName, 
-                        handleSearchForUser, 
-                        searchUsersList, 
-                        handleUserClick, 
-                        handleSendFile, 
-                        setShowSendFileMenu }) => {
+const SendFileMenu = ({ fileName, setSendDeleteMenu, setEditOrNewFile, userFilesRefetch }) => {
   
+  const { data: userNamesList } = useQuery({
+    queryKey: ["userNames"],
+    queryFn: () => getUserNames(localStorage.getItem("userEmail"))
+  });
+
+  const [selectedUserNames, setSelectedUserNames] = useState([]);
+
+  const handleSendFiles = async () => {
+
+    if (selectedUserNames.length === 0) {
+      console.log("NO USERS SELECTED");
+      return;
+    }
+
+    try {
+
+      let localUserNamesArr = selectedUserNames.map((item) => item.value);
+
+      const localFormData = {
+        email: localStorage.getItem("userEmail"),
+        fileName: fileName,
+        usernamesList: localUserNamesArr
+      }
+
+      const localSendFilesSuccess = await sendFiles(localFormData);
+      if (localSendFilesSuccess === 1) {
+        setSendDeleteMenu(0);
+        setEditOrNewFile(-1);
+      }
+
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   return (
       <div className='sendFileOuterMenuWrapper'>
         <div className='sendFileInnerMenuWrapper'>
           <h1 style={{marginLeft: '30px'}}>Search for a user</h1>
-          <input 
+          {/* <input 
             className="sendFileMenuSearchBar" 
             type="text"
             placeholder="Search for a user..."
             value={fileReceiverName}
             onChange={handleSearchForUser}
-          />
-          <div className='userSearchSuggestionListWrapper'>
-            {searchUsersList.map((user) => {
-              return (
-                <div className='userSearchSuggestionListBox'>
-                  <button 
-                    className='userSearchSuggestionListButton'
-                    onClick={() => handleUserClick(user.username)}
-                  >
-                      {user.username}
-                  </button>
-                </div>
-              )
-          })}
-          </div>           
+          /> */}
+          {/* <div style={{ marginLeft: '30px' }}>
+            <SearchBar
+              itemList={userNamesList}
+              handleItemClick={handleSelectUser}
+              binNumber={4}
+            />
+          </div> */}
+          <div style={{ width: '90%', marginLeft: '30px' }}>
+            <Select
+              options={userNamesList}
+              isClearable
+              isMulti
+              onChange={(item) => setSelectedUserNames(item)}
+            />
+          </div>
           <div className='sendFileMenuButtonWrapper'>
-            <button className='sendFileMenuCancelButton' onClick={() => setShowSendFileMenu(false)}>
-              Cancel
-            </button>
             <button 
               className='sendFileMenuSendButton'
-              onClick={handleSendFile}
+              onClick={handleSendFiles}
             >
               Send
             </button>
-          </div>
+            <button className='sendFileMenuCancelButton' onClick={() => setSendDeleteMenu(0)}>
+              Cancel
+            </button></div>
         </div>
       </div>
     );
 }
 
 export default SendFileMenu
+
+/* <div className='userSearchSuggestionListWrapper'>
+            {userNamesList?.map((userName) => {
+              return (
+                <div className='userSearchSuggestionListBox'>
+                  <button 
+                    className='userSearchSuggestionListButton'
+                    onClick={() => handleSelectUser(userName)}
+                  >
+                      {userName}
+                  </button>
+                </div>
+              )
+          })}
+          </div>            */

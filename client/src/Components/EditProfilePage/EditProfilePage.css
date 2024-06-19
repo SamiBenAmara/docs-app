@@ -1,15 +1,25 @@
+.mainDivWrapper {
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+}
+
 .mainDiv {
-    height: 100vh;
+    padding-top: 5px;
+    /* height: 100vh; */
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
 }
 
 .contentDiv {
+    display: flex;
+    flex-direction: column;
     background: white;
     width: 700px;
+    border: solid;
     border-radius: 30px;
     height: 550px;
 }
@@ -51,7 +61,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-top: 60px;
 }
 
@@ -66,26 +76,56 @@
     cursor: pointer;
 }
 
+.editProfileBackButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: none;
+    margin-left: 5%;
+    width: 200px;
+    padding: 15px;
+    font-size: large;
+    cursor: pointer;
+}
+
+.editProfileBackButton:hover {
+    background-color: rgb(0, 0, 0, 0.25);
+}
+
+.editProfileBackButton:active {
+    background-color: rgb(0, 0, 0, 0.5);
+}
+
 .editMenuButton:active {
     opacity: 0.5;
 }
 
+.verticalLineContainer {
+    height: 600px;
+    width: 10px;
+    background-color: darkblue;
+    border-radius: 15px;
+}
+
 .changePasswordMenuOuterContainer {
-    position: fixed;
-    width: 100%;
+    /* position: fixed; */
+    /* width: 100%;
     height: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    background-color: rgb(0, 0, 0, 0.5);
-    top: 0;
+    justify-content: center; */
+    /* background-color: rgb(0, 0, 0, 0.5); */
+    /* top: 0; */
 }
 
 .changePasswordMenuInnerContainer {
     background-color: white;
-    width: 800px;
-    height: 500px;
+    border: solid;
+    width: 700px;
+    height: 550px;
     border-radius: 30px;
 }
 
@@ -95,7 +135,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-top: 60px;
+    margin-top: 150px;
     gap: 100px;
 }
 
