@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateAllData } from '../../reduxSlices/userSlice.js';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -8,17 +10,22 @@ import { editProfileInformation, editUserPassword, getUserInformation } from '..
 const EditProfilePage = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const { data, isLoading } = useQuery({
-    queryKey: "userData",
-    queryFn: () => getUserInformation(localStorage.getItem("userEmail"))
-  });
+  const userData = useSelector((state) => state.userData);
 
-  useEffect(() => {
-    setUserFormData(data);
-  }, [data]);
+  // const { data, isLoading } = useQuery({
+  //   queryKey: "userData",
+  //   queryFn: () => getUserInformation(userData.email)
+  //   // queryFn: () => getUserInformation(localStorage.getItem("userEmail"))
+  // });
 
-  const [userFormData, setUserFormData] = useState(data);
+  // useEffect(() => {
+  //   setUserFormData(data);
+  // }, [data]);
+
+  // const [userFormData, setUserFormData] = useState(data);
+  const [userFormData, setUserFormData] = useState(userData);
   const [showChangePasswordMenu, setShowChangePasswordMenu] = useState(false);
   const [showChangeProfileError, setShowChangeProfileError] = useState(0);
   const [userPasswordData, setUserPasswordData] = useState({
@@ -27,18 +34,25 @@ const EditProfilePage = () => {
     reenterNewPassword: ""
   });
 
+  // useEffect(() => {
+  //   setUserFormData(userData);
+  // }, [userFormData, userData]);
+
+
   const navigateBack = () => {
     navigate('/home');
   };
 
   const handleUpdateData = async () => {
 
-    userFormData.originalEmail = localStorage.getItem("userEmail");
+    // userFormData.originalEmail = localStorage.getItem("userEmail");
+    userFormData.originalEmail = userData.email;
 
     try {
       const localUpdateDataSuccess = await editProfileInformation(userFormData);
       if (localUpdateDataSuccess === 1) {
-        localStorage.setItem("userEmail", userFormData.email);
+        // localStorage.setItem("userEmail", userFormData.email);
+        dispatch(updateAllData(userFormData));
         setShowChangeProfileError(0);
         navigate('/home');
       } else {
@@ -55,7 +69,8 @@ const EditProfilePage = () => {
     try {
 
       const localUserPasswordData = {
-        email: localStorage.getItem("userEmail"),
+        // email: localStorage.getItem("userEmail"),
+        email: userData.email,
         oldPassword: userPasswordData.oldPassword,
         newPassword: userPasswordData.newPassword,
         reenterNewPassword: userPasswordData.reenterNewPassword
@@ -80,7 +95,7 @@ const EditProfilePage = () => {
       </button>
       <hr style={{ width: '95%' }} />
       <div className='mainDiv'>
-        {isLoading ? (<h1 style={{ color: 'white' }}>Loading...</h1>) : (
+        {/* {isLoading ? (<h1 style={{ color: 'white' }}>Loading...</h1>) : ( */}
           <div className='contentDiv'>
             <div className='editProfileHeaderWrapper'>
               <h1 className='editProfileHeaderText'>Edit Profile Information</h1>
@@ -92,9 +107,10 @@ const EditProfilePage = () => {
               </div>
               <input 
                 className='itemInput' 
-                type='text' 
+                type='text'
                 // defaultValue={data?.firstname}
-                value={userFormData?.firstname} 
+                // defaultValue={userData.firstName}
+                value={userFormData.firstName} 
                 onChange={(e) => setUserFormData({ ...userFormData, firstname: e.target.value })} 
               />
             </div>
@@ -105,7 +121,7 @@ const EditProfilePage = () => {
               <input
                 className='itemInput'
                 type='text'
-                value={userFormData?.lastname}
+                value={userFormData.lastName}
                 onChange={(e) => setUserFormData({ ...userFormData, lastname: e.target.value })}
               />
             </div>
@@ -118,7 +134,7 @@ const EditProfilePage = () => {
                 className='itemInput' 
                 type='text' 
                 // defaultValue={data?.username} 
-                value={userFormData?.username}
+                value={userFormData.userName}
                 onChange={(e) => setUserFormData({ ...userFormData, username: e.target.value })}  
               />
             </div>
@@ -131,7 +147,7 @@ const EditProfilePage = () => {
                 className='itemInput' 
                 type='text' 
                 // defaultValue={data?.email}
-                value={userFormData?.email} 
+                value={userFormData.email} 
                 onChange={(e) => setUserFormData({ ...userFormData, email: e.target.value })}
               />
             </div>
@@ -141,7 +157,7 @@ const EditProfilePage = () => {
               <button className='editMenuButton' onClick={handleUpdateData}>Save</button>
             </div>
           </div>
-        )}
+        {/* )} */}
         <div className='verticalLineContainer'>
 
         </div>

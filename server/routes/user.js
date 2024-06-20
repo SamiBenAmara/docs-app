@@ -20,7 +20,7 @@ router.get('/getusernames', async (req, res) => {
     try {
 
         const currentUser = await User.findOne({ email: req.query.email });
-        const currentUsername = currentUser.username;
+        const currentUsername = currentUser.userName;
         const users = await User.find();
         let nameArray = users.map((item) => ({ "value": item.username, "label": item.username }));
         nameArray = nameArray.filter((username) => username.value !== currentUsername);
@@ -39,9 +39,9 @@ router.get('/getuserinfo', async (req, res) => {
 
         const user = await User.findOne({ email: req.query.email });
         const userData = {
-            firstname: user.firstname,
-            lastname: user.lastname,
-            username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            userName: user.userName,
             email: user.email,
             password: user.password
         }
@@ -56,24 +56,30 @@ router.get('/getuserinfo', async (req, res) => {
 // Sign up
 router.post('/signup', async (req, res) => {
 
-    const user = new User({
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        files: []
-    });
-
     try {
-        const newUser = await user.save();
+        // const newUser = await user.save();
 
-        let signupSuccess = {
-            status: "success",
-            name: newUser.firstname
-        };
+        const checkUserEmail = await User.findOne({ email: req.body.email });
+        if (checkUserEmail !== null) {
+            return res.status(400).json({ message: "Email already in use" });
+        }
 
-        return res.status(201).json(signupSuccess);
+        const checkUserUserName = await User.findOne({ userName: req.body.userName });
+        if (checkUserUserName !== null) {
+            return res.status(400).json({ message: "Username already in use" });
+        }
+
+        const user = new User({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            userName: req.body.userName,
+            email: req.body.email,
+            password: req.body.password,
+            files: []
+        });
+
+        await user.save();
+        return res.status(201).json({ message: "Sucessfully created new user" });
     } catch (err) {
         return res.status(400).json({ message: err.message });
     }
@@ -88,19 +94,21 @@ router.post('/signin', async (req, res) => {
 
     try {
         const userFound = await User.findOne({ email: email });
-        if (userFound == null) {
-            return res.status(404).json({ message: "User does not exist" });
+        if (userFound === null) {
+            return res.status(404).json({ message: "Email does not exist" });
         }
 
-        if (userFound.password != password) {
+        if (userFound.password !== password) {
             return res.status(400).json({ message: "Password is incorrect" });
         }
 
-        let loginSuccess = {
-            status: "success",
-            name: userFound.firstname
+        let loginData = {
+            firstName: userFound.firstName,
+            lastName: userFound.lastName,
+            userName: userFound.userName,
+            email: userFound.email
         }
-        return res.status(200).json(loginSuccess);
+        return res.status(200).json(loginData);
     } catch (err) {
         return res.status(404).json({ message: "User does not exist" });
     }

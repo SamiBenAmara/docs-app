@@ -1,15 +1,20 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { updateLoggedInStatus, resetUserData } from '../../reduxSlices/userSlice';
 import { useNavigate } from 'react-router-dom';
 import './NavbarMenu.css';
 
-const NavbarMenu = ({ setIsLoggedIn, setShowMenu }) => {
+const NavbarMenu = ({ /*setIsLoggedIn,*/ setShowMenu }) => {
   
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
-    localStorage.clear();
+    // localStorage.clear();
+    dispatch(resetUserData());
     setShowMenu(false);
-    setIsLoggedIn(false);
+    // setIsLoggedIn(false);
+    dispatch(updateLoggedInStatus(false));
     navigate('/');
   }
   

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import SearchBar from '../SearchBar/SearchBar';
 import FileDescription from '../FileDescription/FileDescription';
@@ -16,14 +17,18 @@ const FILE_GRID_HEIGHTS = ["510px", "190px", "190px"];
 
 const FileListDisplay = ({ listType, fileListProp, handleFileClick, userFilesRefetch, setEditOrNewFile }) => {
   
+  const userEmail = useSelector((state) => state.userData.email);
+
   const { data: senderData, refetch: senderDataRefetch } = useQuery({
     queryKey: ["userSenders"],
-    queryFn: () => getSenders(localStorage.getItem("userEmail"))
+    queryFn: () => getSenders(userEmail)
+    // queryFn: () => getSenders(localStorage.getItem("userEmail"))
   });
 
   const { data: fileExtensionData, refetch: fileExtensionRefetch } = useQuery({
     queryKey: ["userFileExtensions"],
-    queryFn: () => getFileExtensions(localStorage.getItem("userEmail"))
+    queryFn: () => getFileExtensions(userEmail)
+    // queryFn: () => getFileExtensions(localStorage.getItem("userEmail"))
   })
 
   // console.log("senderData: ", senderData);
@@ -107,7 +112,8 @@ const FileListDisplay = ({ listType, fileListProp, handleFileClick, userFilesRef
         try {
           
           let formData = {
-            email: localStorage.getItem('userEmail'),
+            // email: localStorage.getItem('userEmail'),
+            email: userEmail,
             fileName: fileName,
             fileData: reader.result,
             date: new Date()

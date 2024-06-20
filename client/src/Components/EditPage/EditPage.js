@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import DeleteFileMenu from '../DeleteFileMenu/DeleteFileMenu.js';
 import SendFileMenu from '../SendFileMenu/SendFileMenu.js';
 import { changeFileName } from '../../functions.js';
@@ -27,6 +28,8 @@ const MONTH_LIST = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep
 
 const EditPage = ({ selectedFile, setSelectedFile, editOrNewFile, setEditOrNewFile, userFilesRefetch }) => {
 
+    const userEmail = useSelector((state) => state.userData.email);
+
     const [editFileName, setEditFileName] = useState(false);
     const [newEditFileName, setNewEditFileName] = useState(selectedFile?.name.split('.')[0]);
     const [sendDeleteMenu, setSendDeleteMenu] = useState(0);
@@ -40,7 +43,8 @@ const EditPage = ({ selectedFile, setSelectedFile, editOrNewFile, setEditOrNewFi
       try {
 
         const localFormData = {
-          email: localStorage.getItem("userEmail"),
+          // email: localStorage.getItem("userEmail"),
+          email: userEmail,
           fileName: selectedFile?.name,
           newFileName: localNewFileName
         };

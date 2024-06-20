@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateAllData } from '../../reduxSlices/userSlice.js';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import { loginUser } from '../../functions.js';
@@ -6,35 +8,47 @@ import { loginUser } from '../../functions.js';
 const Login = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [displayError, setDisplayError] = useState(0);
   
   const handleLoginUser = async (e) => {
 
     e.preventDefault();
 
-    const formData = {
-      email: email,
-      password: password
-    }
-
     try {
 
-      const loginSuccess = await loginUser(formData);
+      const formData = {
+        email: email,
+        password: password
+      }
 
-      if (loginSuccess.status === 'success') {
-        localStorage.setItem("userEmail", email);
-        localStorage.setItem("username", loginSuccess.username);
-        localStorage.setItem("isLoggedIn", true);
-        localStorage.setItem("userFirstName", loginSuccess.name);
+      const loginResult = await loginUser(formData);
+
+      if (loginResult.status === 200) {
+        // localStorage.setItem("userEmail", email);
+        // localStorage.setItem("username", loginSuccess.username);
+        // localStorage.setItem("isLoggedIn", true);
+        // localStorage.setItem("userFirstName", loginSuccess.name);
+        const userFormData = {
+          firstName: loginResult.data.firstName,
+          lastName: loginResult.data.lastName,
+          userName: loginResult.data.userName,
+          email: email,
+          isLoggedIn: true,
+        };
+
+        dispatch(updateAllData(userFormData));
         navigate('/home');
+      } else {
+        setDisplayError(loginResult.response.status);
       }
 
     } catch (err) {
       console.log(err.message);
     }
-
   };
 
   return (
@@ -53,6 +67,8 @@ const Login = () => {
               placeholder='Password'
               onChange={(e) => setPassword(e.target.value)}  
             />
+            { displayError === 404 && <h6 className='errorMessage'>Email does not exist</h6>}
+            { displayError === 400 && <h6 className='errorMessage'>Password is incorrect</h6>}
             <button 
               type="submit"
               className='loginButton'

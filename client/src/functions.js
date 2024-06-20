@@ -51,18 +51,22 @@ export const getFileExtensions = async (email) => {
 export const signup = async (formData) => {
     return axios.post(`${userUrl}/signup`, formData)
     .then((res) => {
-        return res.data;
+        return res;
     })
-    .catch((err) => err.message);
+    .catch((err) => {
+        return err;
+    });
 }
 
 // Login 
 export const loginUser = async (formData) => {
     return axios.post(`${userUrl}/signin`, formData)
     .then((res) => {
-        return res.data;
+        return res;
     })
-    .catch((err) => err.message);
+    .catch((err) => {
+        return err;
+    });
 }
 
 // Edit user information

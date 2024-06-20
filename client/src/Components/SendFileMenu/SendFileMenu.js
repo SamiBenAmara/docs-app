@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import SearchBar from '../SearchBar/SearchBar';
 import { getUserNames, sendFiles } from '../../functions.js';
 import { useQuery } from 'react-query';
@@ -7,9 +8,12 @@ import './SendFileMenu.css';
 
 const SendFileMenu = ({ fileName, setSendDeleteMenu, setEditOrNewFile, userFilesRefetch }) => {
   
+  const userEmail = useSelector((state) => state.userData.email);
+
   const { data: userNamesList } = useQuery({
     queryKey: ["userNames"],
-    queryFn: () => getUserNames(localStorage.getItem("userEmail"))
+    queryFn: () => getUserNames(userEmail)
+    // queryFn: () => getUserNames(localStorage.getItem("userEmail"))
   });
 
   const [selectedUserNames, setSelectedUserNames] = useState([]);
@@ -26,7 +30,8 @@ const SendFileMenu = ({ fileName, setSendDeleteMenu, setEditOrNewFile, userFiles
       let localUserNamesArr = selectedUserNames.map((item) => item.value);
 
       const localFormData = {
-        email: localStorage.getItem("userEmail"),
+        // email: localStorage.getItem("userEmail"),
+        email: userEmail,
         fileName: fileName,
         usernamesList: localUserNamesArr
       }

@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { useSelector } from 'react-redux';
 import './DeleteFileMenu.css';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -6,10 +7,13 @@ import { deleteFile } from '../../functions.js';
 
 const DeleteFileMenu = ({ fileName, setSendDeleteMenu, setEditOrNewFile, userFilesRefetch }) => {
   
+    const userEmail = useSelector((state) => state.userData.email);
+
     const handleFileDelete = async () => {
 
         const formData = {
-          email: localStorage.getItem('userEmail'),
+        //   email: localStorage.getItem('userEmail'),
+          email: userEmail,
           fileName: fileName
         };
     

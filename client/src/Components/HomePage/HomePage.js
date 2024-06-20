@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import FileCard from '../FileCard/FileCard';
 import DescriptionIcon from '@mui/icons-material/Description';
 import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
@@ -31,9 +32,16 @@ import FileListDisplay from '../FileListDisplay/FileListDisplay.js';
 
 const HomePage = () => {
 
+  const userEmail = useSelector((state) => state.userData.email);
+  const userFirstName = useSelector((state) => state.userData.firstName);
+
+  console.log("userEmail: ", userEmail);
+  console.log("userFirstName: ", userFirstName);
+
   const { data: userFiles, refetch: userFilesRefetch } = useQuery({
     queryKey: ["userFiles"],
-    queryFn: () => getFiles(localStorage.getItem('userEmail'))
+    queryFn: () => getFiles(userEmail)
+    // queryFn: () => getFiles(localStorage.getItem('userEmail'))
   })
 
   // console.log("userFiles: ", userFiles);
@@ -115,7 +123,8 @@ const HomePage = () => {
       ) : (
         <div>
           <div className='welcomeMessageWrapper'>
-            <h1 className='welcomeMessageText'>{`Welcome, ${localStorage.getItem('userFirstName')}`}</h1>
+            <h1 className='welcomeMessageText'>{`Welcome, ${userFirstName}`}</h1>
+            {/* <h1 className='welcomeMessageText'>{`Welcome, ${localStorage.getItem('userFirstName')}`}</h1> */}
           </div>
           <hr style={{ width: '95%' }} />
           <div className='fileDisplayWrapper'>

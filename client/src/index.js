@@ -7,6 +7,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from './Components/Navbar/Navbar';
 import HomePage from './Components/HomePage/HomePage';
 import { QueryClientProvider, QueryClient } from 'react-query';
+import { PersistGate } from 'redux-persist/integration/react';
+import { Provider } from 'react-redux';
+import { store, persistor } from './reduxStore.js';
 import EditProfilePage from './Components/EditProfilePage/EditProfilePage';
 
 const queryClient = new QueryClient();
@@ -14,16 +17,20 @@ const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={ <App /> } />
-          <Route path="/home" element={ <HomePage /> } />
-          <Route path="/editprofile" element={ <EditProfilePage /> } />
-        </Routes>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={ <App /> } />
+              <Route path="/home" element={ <HomePage /> } />
+              <Route path="/editprofile" element={ <EditProfilePage /> } />
+            </Routes>
+          </BrowserRouter>
+        </QueryClientProvider>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 );
 

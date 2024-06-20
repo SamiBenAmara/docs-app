@@ -8,6 +8,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import RestoreIcon from '@mui/icons-material/Restore';
+import { useSelector } from 'react-redux';
 import { restoreDeletedFile, acceptReceivedFile, rejectReceivedFile, uploadFile, saveFileChanges } from '../../functions.js';
 import './EditFileOptionsMenu.css';
 
@@ -20,10 +21,13 @@ const EditFileOptionsMenu = ({ selectedFile,
                                userFilesRefetch,
                                setDisplayNewNameError }) => {
 
+  const userEmail = useSelector((state) => state.userData.email);
+
   const handleRestoreFile = async () => {
 
     const formData = {
-      email: localStorage.getItem('userEmail'),
+      // email: localStorage.getItem('userEmail'),
+      email: userEmail,
       fileName: selectedFile?.name
     };
 
@@ -45,7 +49,8 @@ const EditFileOptionsMenu = ({ selectedFile,
   const handleAcceptFile = async () => {
     
     const formData = {
-      email: localStorage.getItem("userEmail"),
+      // email: localStorage.getItem("userEmail"),
+      email: userEmail,
       fileName: selectedFile?.name
     };
 
@@ -68,7 +73,8 @@ const EditFileOptionsMenu = ({ selectedFile,
   const handleRejectFile = async () => {
 
     const formData = {
-      email: localStorage.getItem("userEmail"),
+      // email: localStorage.getItem("userEmail"),
+      email: userEmail,
       fileName: selectedFile?.name
     };
 
@@ -91,7 +97,8 @@ const EditFileOptionsMenu = ({ selectedFile,
   const handleSaveFile = async () => {
     
     const formData = {
-      email: localStorage.getItem('userEmail'),
+      // email: localStorage.getItem('userEmail'),
+      email: userEmail,
       fileName: selectedFile?.name,
       fileData: `data:text/plain;base64,${selectedFile?.data}`,
       date: new Date()
