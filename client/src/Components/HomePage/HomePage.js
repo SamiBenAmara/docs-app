@@ -35,8 +35,8 @@ const HomePage = () => {
   const userEmail = useSelector((state) => state.userData.email);
   const userFirstName = useSelector((state) => state.userData.firstName);
 
-  console.log("userEmail: ", userEmail);
-  console.log("userFirstName: ", userFirstName);
+  // console.log("userEmail: ", userEmail);
+  // console.log("userFirstName: ", userFirstName);
 
   const { data: userFiles, refetch: userFilesRefetch } = useQuery({
     queryKey: ["userFiles"],

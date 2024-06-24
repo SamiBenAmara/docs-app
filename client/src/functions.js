@@ -73,18 +73,22 @@ export const loginUser = async (formData) => {
 export const editProfileInformation = async (formData) => {
     return axios.patch(`${userUrl}/editprofile`, formData)
     .then((res) => {
-        return res.data;
+        return res;
     })
-    .catch((err) => err.message);
+    .catch((err) => {
+        return err;
+    });
 };
 
 // Edit user password
 export const editUserPassword = async (formData) => {
     return axios.patch(`${userUrl}/changepassword`, formData)
     .then((res) => {
-        return res.data;
+        return res;
     })
-    .catch((err) => err.message);
+    .catch((err) => {
+        return err;
+    });
 };
 
 // Upload a file

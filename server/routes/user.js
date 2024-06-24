@@ -120,43 +120,61 @@ router.patch('/editprofile', async (req, res) => {
 
     try {
 
-        const newUserName = req.body.username;
-        const newEmail = req.body.email;
-
+        // Get the users information
         const user = await User.findOne({ email: req.body.originalEmail });
-        const originalUserName = user.username;
+        // const originalUserName = user.userName;
 
-        // Get a list of the existing information of other users to make sure that there are no duplicates
-        const userList = await User.find();
-        let userEmailList = userList.map((user) => {
-            if (user.email !== req.body.originalEmail) {
-                return user.email;
+        if (req.body.originalEmail !== req.body.email) {
+            const checkUserEmail = await User.findOne({ email: req.body.email });
+            if (checkUserEmail !== null) {
+                return res.status(400).json(1);
             }
-        });
-        let userNameList = userList.map((user) => {
-            if (user.username !== originalUserName) {
-                return user.username;
-            }
-        });
-
-        const emailFilterLength = userEmailList.filter((email) => email === newEmail).length;
-        const usernameFilterLength = userNameList.filter((username) => username === newUserName).length;
-
-        if (emailFilterLength > 0 && usernameFilterLength > 0) {
-            return res.json(4)
-        } else if (emailFilterLength > 0) {
-            return res.json(3);
-        } else if (usernameFilterLength > 0) {
-            return res.json(2);
         }
 
-        user.firstname = req.body.firstname;
-        user.lastname = req.body.lastname;
-        user.username = newUserName;
-        user.email = newEmail;
+        if (req.body.originalUserName !== req.body.userName) {
+            const checkUserUserName = await User.findOne({ userName: req.body.userName });
+            if (checkUserUserName !== null) {
+                return res.status(400).json(2);
+            }
+        }
+
+        user.firstName = req.body.firstName;
+        user.lastName = req.body.lastName;
+        user.userName = req.body.userName;
+        user.email = req.body.email;
 
         await user.save();
-        return res.status(200).json(1);
+        return res.status(200).json(3);
+
+        // const newUserName = req.body.username;
+        // const newEmail = req.body.email;
+
+        // Get a list of the existing information of other users to make sure that there are no duplicates
+        // const userList = await User.find();
+        // let userEmailList = userList.map((user) => {
+        //     if (user.email !== req.body.originalEmail) {
+        //         return user.email;
+        //     }
+        // });
+        // let userNameList = userList.map((user) => {
+        //     if (user.username !== originalUserName) {
+        //         return user.username;
+        //     }
+        // });
+
+        // console.log("userEmailList: ", userEmailList);
+        // console.log("userNameList: ", userNameList);
+
+        // const emailFilterLength = userEmailList.filter((email) => email === newEmail).length;
+        // const usernameFilterLength = userNameList.filter((username) => username === newUserName).length;
+
+        // if (emailFilterLength > 0 && usernameFilterLength > 0) {
+        //     return res.json(4)
+        // } else if (emailFilterLength > 0) {
+        //     return res.json(3);
+        // } else if (usernameFilterLength > 0) {
+        //     return res.json(2);
+        // }
 
     } catch (err) {
         return res.status(500).json({ message: err.message });
@@ -174,12 +192,22 @@ router.patch('/changepassword', async (req, res) => {
         const newPassword = req.body.newPassword;
         const reenterNewPassword = req.body.reenterNewPassword;
 
-        if (oldPassword === user.password && newPassword === reenterNewPassword) {
-            user.password = newPassword;
+        if (oldPassword !== user.password) {
+            return res.status(400).json(1);
+        } 
+        
+        if (newPassword !== reenterNewPassword) {
+            return res.status(400).json(2);
         }
 
+        if (oldPassword === newPassword) {
+            return res.status(400).json(3);
+        }
+
+        user.password = newPassword;
+
         await user.save();
-        res.status(200).json(1);
+        res.status(200).json(4);
 
     } catch (err) {
         return res.status(500).json({ message: err.message });
