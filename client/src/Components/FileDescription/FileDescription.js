@@ -1,30 +1,12 @@
 import React from 'react'
 import DescriptionIcon from '@mui/icons-material/Description';
 import EditOffIcon from '@mui/icons-material/EditOff';
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
-import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import ImageIcon from '@mui/icons-material/Image';
-import PictureAsPdfOutlinedIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import EditIcon from '@mui/icons-material/Edit';
-import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import './FileDescription.css';
 
-const MONTH_LIST = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec'
-];
+const MONTH_LIST = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 const FileDescription = ({ file, handleFileClick }) => {
   
@@ -45,6 +27,7 @@ const FileDescription = ({ file, handleFileClick }) => {
     return `${tempNewMonth} ${tempNewDay}, ${tempNewYear}`;
   };
 
+  // Display a shortened version of the file name if it's longer than 10 characters, otherwise display the full name
   const displayFileName = () => {
 
     let localSplitFileName = file.name.split('.');
@@ -62,16 +45,12 @@ const FileDescription = ({ file, handleFileClick }) => {
         onClick={() => handleFileClick(file)}
     >
         <div className='fileDescriptionListButtonInteriorWrapper'>
-            {/* <div className='fileDescriptionIconWrapper'>
-                <CircleOutlinedIcon style={{ color: 'darkblue', height: '25', width: '25' }}/>
-            </div> */}
             <div className='fileDescriptionFileTypeWrapper'>
                 { fileType === 'txt' && <DescriptionIcon style={{ color: 'darkblue', height: '25', width: '25' }} /> }
                 { fileType === 'pdf' && <PictureAsPdfIcon style={{ color: 'darkblue', height: '25', width: '25' }} />}
                 { fileType === 'img' && <ImageIcon style={{ color: 'darkblue', height: '25', width: '25' }} /> }
             </div>
             <div className='fileDescriptionFileNameWrapper'>
-                {/* <h3 className='fileDescriptionText'>{file.name}</h3> */}
                 <h3 className='fileDescriptionText'>{displayFileName()}</h3>
             </div>
             <div className='fileDescriptionDateCreatedWrapper'>
@@ -90,7 +69,6 @@ const FileDescription = ({ file, handleFileClick }) => {
                 </div>
             }
         </div>
-        {/* <FileCard fileName={file.name} fileType={getFileType(file)} /> */}
     </button>
   )
 }

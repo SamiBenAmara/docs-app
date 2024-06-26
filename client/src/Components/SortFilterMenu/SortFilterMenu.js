@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useQuery } from 'react-query';
+import React, { useState } from 'react';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { getSenders, getFileExtensions } from '../../functions';
 
 import './SortFilterMenu.css';
 
@@ -22,28 +20,18 @@ const SortFilterMenu = ({ listType,
   // 3 --> DATE (DESC)
   const [fileSortOptions, setFileSortOptions] = useState(-1);
 
-  // Index 0 --> Filter By Extension
-  // Index 1 --> Filter By Type
-  // Index 2 --> Filter By Sender
-  // -1 --> Not filtering
-  // 1  --> filtering
-  // const [fileFilterOptions, setFileFilterOptions] = useState([-1, -1, -1]);
-
   const [numActiveFilters, setNumActiveFilters] = useState(0);
   
   // Keeps track of the filters that are currently being used
   const [filterList, setFilterList] = useState({ extensions: [], fileTypes: [], senders: [] });
-  // console.log(`${listType}: `, fileFilterOptionLists);
 
+  // Filter the user's files based on the selected filters
   const handleFilterFiles = (localSelectedGroup, localSelectedOption) => {
-
-    console.log("localSelectedGroup: ", localSelectedGroup);
-    console.log("localSelectedOption: ", localSelectedOption);
 
     let localNumActiveFilters = numActiveFilters;
     let localFilterList = filterList;
     let isFilter;
-
+ 
     if (localSelectedGroup === 1) {
       // Set or disable filter if the user selected an "extension" filter
       isFilter = fileFilterOptionLists.extensions[localSelectedOption].isSelected;
@@ -83,19 +71,6 @@ const SortFilterMenu = ({ listType,
 
     isFilter = !isFilter;
 
-    // if (localSelectedGroup === 1) {
-    //   isFilter = fileFilterOptionLists.extensions[localSelectedOption].isSelected;
-    //   localFilterList.extensions.push(localSelectedOption)
-    //   setFileFilterOptionLists({ ...fileFilterOptionLists, extensions: { ...fileFilterOptionLists.extensions, [localSelectedOption]: { ...[localSelectedOption], isSelected: !isFilter } } });
-    // } else if (localSelectedGroup === 2) {
-    //   isFilter = fileFilterOptionLists.fileTypes[localSelectedOption];
-    //   localFilterList = Array.from(new Set(localFilterList.fileTypes.push(localSelectedOption)));
-    //   setFileFilterOptionLists({ ...fileFilterOptionLists, fileTypes: { ...fileFilterOptionLists.fileTypes, [localSelectedOption]: !isFilter } });
-    // } else if (localSelectedGroup === 3) {
-    //   isFilter = fileFilterOptionLists.senders[localSelectedOption].isSelected;
-    //   setFileFilterOptionLists({ ...fileFilterOptionLists, senders: { ...fileFilterOptionLists.senders, [localSelectedOption]: { ...[localSelectedOption], isSelected: !isFilter } } });
-    // }
-
     let localTempFileList = fileList;
 
     if (localNumActiveFilters === 0) {
@@ -105,12 +80,11 @@ const SortFilterMenu = ({ listType,
       }); 
     } else {
 
-      // ---------------------------------------------
-
       const extensionsNotEmpty = localFilterList.extensions.length > 0;
       const fileTypesNotEmpty = localFilterList.fileTypes.length > 0;
       const sendersNotEmpty = localFilterList.senders.length > 0;
 
+      // Filter the user's files based on the currently selected filters
       localTempFileList = localTempFileList.map((file) => {
 
         if (extensionsNotEmpty && !localFilterList.extensions.includes(file.extension)) {
@@ -132,195 +106,13 @@ const SortFilterMenu = ({ listType,
         return file;
       });
     }
-      // ------------------------------------------
-      
-    //   if (localFilterList.extensions.length > 0) {
-    //     // localTempFileList = localTempFileList.filter((file) => localFilterList.extensions.includes(file.extension));
-    //     localTempFileList = localTempFileList.map((file) => {
-    //       if (localFilterList.extensions.includes(file.extension)) {
-    //         file.isViewable = 1;
-    //       } else {
-    //         file.isViewable = 0;
-    //       }
-    //       return file;
-    //     });
-    //   }
-    //   if (localFilterList.fileTypes.length > 0) {
-    //     // localTempFileList = localTempFileList.filter((file) => localFilterList.fileTypes.includes(file.type));
-    //     localTempFileList = localTempFileList.map((file) => {
-    //       if (localFilterList.fileTypes.includes(file.type)) {
-    //         file.isViewable = 1;
-    //       } else {
-    //         file.isViewable = 0;
-    //       }
-    //       return file;
-    //     });
-    //   }
-    //   if (localFilterList.senders.length > 0) {
-    //     // localTempFileList = localTempFileList.filter((file) => localFilterList.senders.includes(file.senders));
-    //     localTempFileList = localTempFileList.map((file) => {
-    //       if (localFilterList.senders.includes(file.senders)) {
-    //         file.isViewable = 1;
-    //       } else {
-    //         file.isViewable = 0;
-    //       }
-    //       return file;
-    //     });
-    //   }
-    // }
-
-    console.log("localTempFileList: ", localTempFileList);
-    console.log("localFilterList: ", localFilterList);    
-    console.log("fileFilterOptionLists: ", fileFilterOptionLists);
 
     setFileList(localTempFileList);
     setReloadFileList(!reloadFileList);
 
   };
 
-  // const filterFilesByExtension = (selectedOption) => {
-
-  //   let isFilter = fileFilterOptionLists.extensions[selectedOption].isSelected;
-  //   let localNumActiveFilters = numActiveFilters;
-  //   let localExtensionFilterList = filterList.extensions;
-
-  //   // Check the current state of the selected filter, and switch it
-  //   if (isFilter) {
-  //     localNumActiveFilters -= 1;
-  //     setNumActiveFilters(localNumActiveFilters);
-  //     setFileFilterOptionLists({ ...fileFilterOptionLists, extensions: { ...fileFilterOptionLists.extensions, [selectedOption]: { ...[selectedOption], isSelected: 0 } } });
-  //     localExtensionFilterList = localExtensionFilterList.filter((extension) => extension !== selectedOption);
-  //     // setExtensionFilterList(localExtensionFilterList);
-  //   } else {
-  //     localNumActiveFilters += 1;
-  //     setNumActiveFilters(localNumActiveFilters);
-  //     setFileFilterOptionLists({ ...fileFilterOptionLists, extensions: { ...fileFilterOptionLists.extensions, [selectedOption]: { ...[selectedOption], isSelected: 1 } } });
-  //     localExtensionFilterList.push(selectedOption);
-  //     // setExtensionFilterList(localExtensionFilterList);
-  //   }
-
-  //   isFilter = !isFilter;
-  //   let localTempFileList = fileList;
-
-  //   // console.log("localNumActiveFilters: ", localNumActiveFilters);
-
-  //   if (localNumActiveFilters === 0) {
-  //     localTempFileList = fileList.map((file) => {
-  //       file.isViewable = 2;
-  //       return file;
-  //     }); 
-  //   } else {
-  //     localTempFileList = localTempFileList.filter((file) => localExtensionFilterList.includes(file.extension));
-  //   }
-
-  //   // console.log("localTempFileList: ", localTempFileList);
-
-  //   // setFileFilterOptionLists({ ...fileFilterOptionLists, extensions: newFilterOptionsList });
-  //   // let localTempFileList = fileList.map((file) => {
-      
-  //   //   if (localNumActiveFilters === 0) {
-  //   //     file.isViewable = 2;
-  //   //   } else {
-  //   //     if (isFilter) {
-  //   //       if (file.extension === selectedOption) {
-  //   //         file.isViewable = 1;
-  //   //       } else if (file.isViewable !== 1) {
-  //   //         file.isViewable = 0;
-  //   //       }
-  //   //     } else if (file.extension === selectedOption) {
-  //   //       file.isViewable = 0;
-  //   //     }
-  //   //   }
-
-  //   //   return file;
-  //   // });
-
-  //   // console.log(localTempFileList);
-
-  //   setFileList(localTempFileList);
-  //   setReloadFileList(!reloadFileList);
-
-  //   // console.log(localTempFileList);
-  // };
-
-  // const filerFilesByType = (selectedOption) => {
-
-  //   let isFilter = fileFilterOptionLists.fileTypes[selectedOption];
-  //   let localNumActiveFilters = numActiveFilters;
-
-  //   if (isFilter) {
-  //     localNumActiveFilters -= 1;
-  //     setNumActiveFilters(localNumActiveFilters);
-  //     setFileFilterOptionLists({ ...fileFilterOptionLists, fileTypes: { ...fileFilterOptionLists.fileTypes, [selectedOption]: false } });
-  //   } else {
-  //     localNumActiveFilters += 1;
-  //     setNumActiveFilters(localNumActiveFilters);
-  //     setFileFilterOptionLists({ ...fileFilterOptionLists, fileTypes: { ...fileFilterOptionLists.fileTypes, [selectedOption]: true } });
-  //   }
-
-  //   isFilter = !isFilter;
-
-  //   let localTempFileList = fileList.map((file) => {
-
-  //     if (localNumActiveFilters === 0) {
-  //       file.isViewable = 2;
-  //     } else {
-  //       if (isFilter) {
-  //         if (file.type === selectedOption) {
-  //           file.isViewable = 1;
-  //         } else if (file.isViewable !== 1) {
-  //           file.isViewable = 0;
-  //         }
-  //       } else if (file.type === selectedOption) {
-  //         file.isViewable = 0;
-  //       }
-  //     }
-  //     return file;
-  //   });
-
-  //   setFileList(localTempFileList);
-  //   setReloadFileList(!reloadFileList);
-  // };
-
-  // const filterFilesBySender = (selectedOption) => {
-
-  //   let isFilter = fileFilterOptionLists.senders[selectedOption].isSelected;
-  //   let localNumActiveFilters = numActiveFilters;
-
-  //   if (isFilter) {
-  //     localNumActiveFilters -= 1;
-  //     setNumActiveFilters(localNumActiveFilters);
-  //     setFileFilterOptionLists({ ...fileFilterOptionLists, senders: { ...fileFilterOptionLists.senders, [selectedOption]: { ...[selectedOption], isSelected: 0 } } });
-  //   } else {
-  //     localNumActiveFilters += 1;
-  //     setNumActiveFilters(localNumActiveFilters);
-  //     setFileFilterOptionLists({ ...fileFilterOptionLists, senders: { ...fileFilterOptionLists.senders, [selectedOption]: { ...[selectedOption], isSelected: 1 } } });
-  //   }
-
-  //   isFilter = !isFilter;
-
-  //   let localTempFileList = fileList.map((file) => {
-
-  //     if (localNumActiveFilters === 0) {
-  //       file.isViewable = 2;
-  //     } else {
-  //       if (isFilter) {
-  //         if (file.sender === selectedOption) {
-  //           file.isViewable = 1;
-  //         } else if (file.isViewable !== 1) {
-  //           file.isViewable = 0;
-  //         }
-  //       } else if (file.sender === selectedOption) {
-  //         file.isViewable = 0;
-  //       }
-  //     }
-  //     return file;
-  //   });
-
-  //   setFileList(localTempFileList);
-  //   setReloadFileList(!reloadFileList);
-  // };
-
+  // Sort the users' files based on the selected sorting option
   const handleSortFiles = (sortOptionParam) => {
 
     if (sortOptionParam === 0) {
@@ -393,8 +185,6 @@ const SortFilterMenu = ({ listType,
           </button>
           { displaySortFilterOptions === 2 &&
             <div className='fileListDisplayFilterOptions'>
-              {/* <button className='fileListDisplayFilterOptionButton'>Extension</button> */}
-              {/* <button className='fileListDisplayFilterOptionButton'>Sender</button> */}
               <h4 className='fileListDisplayFilterOptionsHeaderText'>Extensions</h4>
               <hr className='fileListDisplayFilterHorizontalLine' />
               <div className='fileListDisplayFilterOptionsExtensionList'>
@@ -461,4 +251,4 @@ const SortFilterMenu = ({ listType,
   )
 }
 
-export default SortFilterMenu
+export default SortFilterMenu;

@@ -1,6 +1,5 @@
 import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-// import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
@@ -26,7 +25,6 @@ const EditFileOptionsMenu = ({ selectedFile,
   const handleRestoreFile = async () => {
 
     const formData = {
-      // email: localStorage.getItem('userEmail'),
       email: userEmail,
       fileName: selectedFile?.name
     };
@@ -49,7 +47,6 @@ const EditFileOptionsMenu = ({ selectedFile,
   const handleAcceptFile = async () => {
     
     const formData = {
-      // email: localStorage.getItem("userEmail"),
       email: userEmail,
       fileName: selectedFile?.name
     };
@@ -73,7 +70,6 @@ const EditFileOptionsMenu = ({ selectedFile,
   const handleRejectFile = async () => {
 
     const formData = {
-      // email: localStorage.getItem("userEmail"),
       email: userEmail,
       fileName: selectedFile?.name
     };
@@ -97,7 +93,6 @@ const EditFileOptionsMenu = ({ selectedFile,
   const handleSaveFile = async () => {
     
     const formData = {
-      // email: localStorage.getItem('userEmail'),
       email: userEmail,
       fileName: selectedFile?.name,
       fileData: `data:text/plain;base64,${selectedFile?.data}`,
@@ -107,12 +102,15 @@ const EditFileOptionsMenu = ({ selectedFile,
     // Check if file name is acceptable
     const localFileNameCheckArray = formData.fileName.split('.');
     if (localFileNameCheckArray.length !== 2) {
+      // Check if the file name is a name followed by a period an a file extension
       setDisplayNewNameError(0);
       return;
     } else if (/[/><:"\\|?*]/.test(localFileNameCheckArray[0])) {
+      // Check if the file name contains any invalid characters
       setDisplayNewNameError(1);
       return;
     } else if (localFileNameCheckArray[0].includes(" ")) {
+      // Check if the file name contains any spaces
       setDisplayNewNameError(2);
       return;
     } else {
@@ -123,6 +121,7 @@ const EditFileOptionsMenu = ({ selectedFile,
 
       let localUpdateFileSuccess;
 
+      // Check if the user is uploading a new file or editing an existing one
       if (editOrNewFile === 0) {
         localUpdateFileSuccess = await uploadFile(formData);
       } else if (editOrNewFile === 1) {

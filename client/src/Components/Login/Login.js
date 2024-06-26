@@ -28,10 +28,6 @@ const Login = () => {
       const loginResult = await loginUser(formData);
 
       if (loginResult.status === 200) {
-        // localStorage.setItem("userEmail", email);
-        // localStorage.setItem("username", loginSuccess.username);
-        // localStorage.setItem("isLoggedIn", true);
-        // localStorage.setItem("userFirstName", loginSuccess.name);
         const userFormData = {
           firstName: loginResult.data.firstName,
           lastName: loginResult.data.lastName,

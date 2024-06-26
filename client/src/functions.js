@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const userUrl = 'http://localhost:5000/docs/user';
+const fileUrl = 'http://localhost:5000/docs/file';
 
 // Get all users
 export const getAllUsers = async () => {
@@ -40,7 +41,7 @@ export const getSenders = async (email) => {
 
 // Get a list of file extensions
 export const getFileExtensions = async (email) => {
-  return axios.get(`${userUrl}/getfileextensions?email=${email}`)
+  return axios.get(`${fileUrl}/getfileextensions?email=${email}`)
   .then((res) => {
     return res.data;
   })
@@ -93,7 +94,7 @@ export const editUserPassword = async (formData) => {
 
 // Upload a file
 export const uploadFile = async (formData) => {
-    return axios.patch(`${userUrl}/uploadfile`, formData)
+    return axios.patch(`${fileUrl}/uploadfile`, formData)
     .then((res) => {
         return res.data;
     })
@@ -102,7 +103,7 @@ export const uploadFile = async (formData) => {
 
 // Send a file to another user
 export const sendFiles = async (formData) => {
-    return axios.patch(`${userUrl}/sendfile`, formData)
+    return axios.patch(`${fileUrl}/sendfile`, formData)
     .then((res) => {
         return res.data;
     })
@@ -111,7 +112,7 @@ export const sendFiles = async (formData) => {
 
 // Get all files from a user
 export const getFiles = async (email) => {
-    return axios.get(`${userUrl}/getfiles?email=${email}`)
+    return axios.get(`${fileUrl}/getfiles?email=${email}`)
     .then((res) => {
         return res.data;
     })
@@ -138,7 +139,7 @@ export const getRecycleBinFiles = async (email) => {
 
 // Accept file from inbox
 export const acceptReceivedFile = async (formData) => {
-    return axios.patch(`${userUrl}/acceptfile`, formData)
+    return axios.patch(`${fileUrl}/acceptfile`, formData)
     .then((res) => {
         return res.data;
     })
@@ -147,7 +148,7 @@ export const acceptReceivedFile = async (formData) => {
 
 // Reject a file that has been sent to a user
 export const rejectReceivedFile = async (formData) => {
-    return axios.delete(`${userUrl}/rejectfile`, { data: formData })
+    return axios.delete(`${fileUrl}/rejectfile`, { data: formData })
     .then((res) => {
         return res.data;
     })
@@ -156,7 +157,7 @@ export const rejectReceivedFile = async (formData) => {
 
 // Restore deleted file
 export const restoreDeletedFile = async (formData) => {
-    return axios.patch(`${userUrl}/restorefile`, formData)
+    return axios.patch(`${fileUrl}/restorefile`, formData)
     .then((res) => {
         return res.data;
     })
@@ -165,7 +166,7 @@ export const restoreDeletedFile = async (formData) => {
 
 // Save changes made to a file
 export const saveFileChanges = async (formData) => {
-    return axios.patch(`${userUrl}/savefilechanges`, formData)
+    return axios.patch(`${fileUrl}/savefilechanges`, formData)
     .then((res) => {
         return res.data;
     })
@@ -174,7 +175,7 @@ export const saveFileChanges = async (formData) => {
 
 // Change the name of a file
 export const changeFileName = async (formData) => {
-    return axios.patch(`${userUrl}/editfilename`, formData)
+    return axios.patch(`${fileUrl}/editfilename`, formData)
     .then((res) => {
         return res.data;
     })
@@ -183,7 +184,7 @@ export const changeFileName = async (formData) => {
 
 // Delete a file
 export const deleteFile = async (formData) => {
-    return axios.delete(`${userUrl}/deletefile`, { data: formData })
+    return axios.delete(`${fileUrl}/deletefile`, { data: formData })
     .then((res) => {
         return res.data;
     })

@@ -9,23 +9,6 @@ import EditFileOptionsMenu from '../EditFileOptionsMenu/EditFileOptionsMenu.js';
 
 const MONTH_LIST = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-// isNewFile,
-// setNewFileName,
-// fileName,
-// fileType,
-// fileData,
-// file,
-// setFileData,
-// navigateBack,
-// setShowDeleteFileMenu,
-// setShowSendFileMenu,
-// handleSaveFile,
-// handleAcceptFile,
-// handleRejectFile,
-// handleRestoreFile,
-// newEditFileName,
-// setNewEditFileName
-
 const EditPage = ({ selectedFile, setSelectedFile, editOrNewFile, setEditOrNewFile, userFilesRefetch }) => {
 
     const userEmail = useSelector((state) => state.userData.email);
@@ -43,7 +26,6 @@ const EditPage = ({ selectedFile, setSelectedFile, editOrNewFile, setEditOrNewFi
       try {
 
         const localFormData = {
-          // email: localStorage.getItem("userEmail"),
           email: userEmail,
           fileName: selectedFile?.name,
           newFileName: localNewFileName
@@ -134,7 +116,6 @@ const EditPage = ({ selectedFile, setSelectedFile, editOrNewFile, setEditOrNewFi
                         </button>
                         <button
                           className='fileEditNameButton'
-                          // value={newEditFileName}
                           onClick={() => {
                             setEditFileName(false);
                             setDisplayEditNameError(false);
@@ -163,7 +144,6 @@ const EditPage = ({ selectedFile, setSelectedFile, editOrNewFile, setEditOrNewFi
                   className='editScreenTextArea'
                   value={atob(selectedFile?.data)}
                   onChange={(e) => setSelectedFile({ ...selectedFile, data: btoa(e.target.value) })}
-                  // onChange={(e) => setFileData(btoa(e.target.value))}
                 />}
               { selectedFile?.type === 'image' &&
                 <div className='editScreenImage'> 
@@ -215,65 +195,3 @@ const EditPage = ({ selectedFile, setSelectedFile, editOrNewFile, setEditOrNewFi
 }
 
 export default EditPage
-
-// <div className="editScreenContainer">
-//   {isNewFile ? (
-//     <input 
-//       className="homeFileSearchBar" 
-//       type="text" 
-//       placeholder="Enter new file name"
-//       onChange={(e) => setNewFileName(e.target.value)}
-//       style={{
-//         marginTop: '50px',
-//         marginBottom: '20px'
-//       }}
-//     />
-//   ) : (
-//     <h1>{fileName}</h1>
-//   )}
-//   { fileType === 'text' ? (
-//     <textarea
-//       value={atob(fileData)}  
-//       onChange={(e) => setFileData(btoa(e.target.value))}
-//       style={{
-//         backgroundColor: 'white',
-//         width: '75%',
-//         height: '650px',
-//         padding: '15px'
-//       }}
-//     />
-//   ) : (<></>) }
-//   { fileType === 'image' ? (
-//     <img 
-//       src={fileData} 
-//       alt="" 
-//       className='editScreenImage'
-//     />
-//   ) : (<></>) }
-//   { fileType === 'pdf' ? (
-//     <embed src={fileData} height="1000x" width="600px"/>
-//   ) : (<></>) }
-//   <div className='editScreenButtonWrapper'>
-//     <button className='editScreenButton' onClick={navigateBack}>
-//       Go Back
-//     </button>
-//     { isNewFile === false ? (
-//       <button 
-//         className='editScreenButton' 
-//         onClick={() => setShowDeleteFileMenu(true)}
-//       >
-//         Delete
-//       </button>
-//     ) : (<></>) }
-//     {isNewFile === false ? (
-//       <button className='editScreenButton' onClick={() => setShowSendFileMenu(true)}>
-//         Send
-//       </button>
-//     ) : (<></>)}
-//     { fileType === 'text' ? (
-//       <button className='editScreenButton' onClick={handleSaveFile}>
-//         Save
-//       </button>
-//     ) : (<></>) }
-//   </div>
-// </div>

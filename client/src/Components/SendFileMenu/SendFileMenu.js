@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import SearchBar from '../SearchBar/SearchBar';
 import { getUserNames, sendFiles } from '../../functions.js';
 import { useQuery } from 'react-query';
 import Select from 'react-select';
@@ -13,7 +12,6 @@ const SendFileMenu = ({ fileName, setSendDeleteMenu, setEditOrNewFile, userFiles
   const { data: userNamesList } = useQuery({
     queryKey: ["userNames"],
     queryFn: () => getUserNames(userEmail)
-    // queryFn: () => getUserNames(localStorage.getItem("userEmail"))
   });
 
   const [selectedUserNames, setSelectedUserNames] = useState([]);
@@ -30,7 +28,6 @@ const SendFileMenu = ({ fileName, setSendDeleteMenu, setEditOrNewFile, userFiles
       let localUserNamesArr = selectedUserNames.map((item) => item.value);
 
       const localFormData = {
-        // email: localStorage.getItem("userEmail"),
         email: userEmail,
         fileName: fileName,
         usernamesList: localUserNamesArr
@@ -51,20 +48,6 @@ const SendFileMenu = ({ fileName, setSendDeleteMenu, setEditOrNewFile, userFiles
       <div className='sendFileOuterMenuWrapper'>
         <div className='sendFileInnerMenuWrapper'>
           <h1 style={{marginLeft: '30px'}}>Search for a user</h1>
-          {/* <input 
-            className="sendFileMenuSearchBar" 
-            type="text"
-            placeholder="Search for a user..."
-            value={fileReceiverName}
-            onChange={handleSearchForUser}
-          /> */}
-          {/* <div style={{ marginLeft: '30px' }}>
-            <SearchBar
-              itemList={userNamesList}
-              handleItemClick={handleSelectUser}
-              binNumber={4}
-            />
-          </div> */}
           <div style={{ width: '90%', marginLeft: '30px' }}>
             <Select
               options={userNamesList}
@@ -88,19 +71,4 @@ const SendFileMenu = ({ fileName, setSendDeleteMenu, setEditOrNewFile, userFiles
     );
 }
 
-export default SendFileMenu
-
-/* <div className='userSearchSuggestionListWrapper'>
-            {userNamesList?.map((userName) => {
-              return (
-                <div className='userSearchSuggestionListBox'>
-                  <button 
-                    className='userSearchSuggestionListButton'
-                    onClick={() => handleSelectUser(userName)}
-                  >
-                      {userName}
-                  </button>
-                </div>
-              )
-          })}
-          </div>            */
+export default SendFileMenu;

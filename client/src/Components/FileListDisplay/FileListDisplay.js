@@ -10,8 +10,6 @@ import { uploadFile, getSenders, getFileExtensions } from '../../functions.js';
 import './FileListDisplay.css';
 import SortFilterMenu from '../SortFilterMenu/SortFilterMenu.js';
 
-// const LIST_NAMES = ["My&nbspFiles", "Inbox", "Recycle&nbspBin"];
-
 const MAIN_CONTAINER_HEIGHTS = ["620px", "300px", "300px"];
 const FILE_GRID_HEIGHTS = ["510px", "190px", "190px"];
 
@@ -19,20 +17,15 @@ const FileListDisplay = ({ listType, fileListProp, handleFileClick, userFilesRef
   
   const userEmail = useSelector((state) => state.userData.email);
 
-  const { data: senderData, refetch: senderDataRefetch } = useQuery({
+  const { data: senderData } = useQuery({
     queryKey: ["userSenders"],
     queryFn: () => getSenders(userEmail)
-    // queryFn: () => getSenders(localStorage.getItem("userEmail"))
   });
 
-  const { data: fileExtensionData, refetch: fileExtensionRefetch } = useQuery({
+  const { data: fileExtensionData } = useQuery({
     queryKey: ["userFileExtensions"],
     queryFn: () => getFileExtensions(userEmail)
-    // queryFn: () => getFileExtensions(localStorage.getItem("userEmail"))
   })
-
-  // console.log("senderData: ", senderData);
-  // console.log("fileExtensionData: ", fileExtensionData);
 
   /* For the fileTypes array:
    * Index 0 --> PDF
@@ -54,43 +47,19 @@ const FileListDisplay = ({ listType, fileListProp, handleFileClick, userFilesRef
 
   const [reloadFileList, setReloadFileList] = useState(false);
 
+  // Update the state that holds the file filter options when the get request is completed
   useEffect(() => {
     setFileList(fileListProp);
 
-    // let localFileTypesArray = [false, false, false];
-
-    // fileListProp?.forEach((file) => {
-    //   let localTempFileType = getFileType(file);
-      
-    //   if (localTempFileType === "pdf") {
-    //     localFileTypesArray[0] = true;
-    //   } else if (localTempFileType === "img") {
-    //     localFileTypesArray[1] = true;
-    //   } else if (localTempFileType === "txt") {
-    //     localFileTypesArray[2] = true;
-    //   }
-
-    //   if (localFileTypesArray[0] && localFileTypesArray[1] && localFileTypesArray[2]) {
-    //     return;
-    //   }
-    // });
-
     setFileFilterOptionLists({
-      // extensions: Array.from(new Set(fileListProp?.map((file) => file = { name: `.${file.name.split('.')[1]}`, isSelected: 0 }))),
-      // extensions: handleSetFilterOptionsListsExtensions,
-      // extensions: fileExtensionData,
       extensions: listType === 0 ? fileExtensionData?.myFiles : listType === 1 ? fileExtensionData?.inbox : fileExtensionData?.recycle,
       fileTypes: { pdf: 0, img: 0, txt: 0 },
       senders: senderData
-      // senders: handleSetFilterOptionsListsSenders
-      // senders: Array.from(new Set(fileListProp?.map((file) => file = { name: file.sender, isSelected: 0 })))
     });
 
   }, [fileListProp, fileExtensionData, listType, senderData]);
 
-  // console.log("senderData: ", senderData);
-  // console.log("fileExtensionData: ", fileExtensionData);
-
+  // Update the file list whenever a file is added, deleted, or the file name changes
   useEffect(() => {
     setFileList(fileList);
   }, [reloadFileList, fileList]);
@@ -112,7 +81,6 @@ const FileListDisplay = ({ listType, fileListProp, handleFileClick, userFilesRef
         try {
           
           let formData = {
-            // email: localStorage.getItem('userEmail'),
             email: userEmail,
             fileName: fileName,
             fileData: reader.result,
@@ -132,6 +100,7 @@ const FileListDisplay = ({ listType, fileListProp, handleFileClick, userFilesRef
       }
   };
 
+  // Display or hide the menu that shows the file sorting options
   const handleDisplaySortOptions = () => {
     if (displaySortFilterOptions === 1) {
       setDisplaySortFilterOptions(0);
@@ -140,6 +109,7 @@ const FileListDisplay = ({ listType, fileListProp, handleFileClick, userFilesRef
     }
   };
 
+  // Display or hide the menu that shows the file filter options
   const handleDisplayFilterOptions = () => {
     if (displaySortFilterOptions === 2) {
       setDisplaySortFilterOptions(0);
@@ -148,8 +118,6 @@ const FileListDisplay = ({ listType, fileListProp, handleFileClick, userFilesRef
     }
   };
   
-  // console.log("fileList: ", fileList);
-
   return (
     <div className='fileListDisplayMainWrapper' style={{ height: MAIN_CONTAINER_HEIGHTS[listType] }}>
       <div className='fileListDisplayHeaderWrapper'>
@@ -176,8 +144,6 @@ const FileListDisplay = ({ listType, fileListProp, handleFileClick, userFilesRef
         {listType === 0 ? (
           <div className='myFilesSearchWrapper'>
             <SearchBar
-              // searchFileName={searchInboxFileName}
-              // handleSearchForFile={(e) => handleSearchForFile(e, 1)}
               itemList={fileList}
               handleItemClick={handleFileClick}
             />

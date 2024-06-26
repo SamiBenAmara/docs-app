@@ -19,7 +19,9 @@ app.use(express.json());
 app.use(cors());
 
 const userRoutes = require('./routes/user');
+const fileRoutes = require('./routes/file');
 app.use('/docs/user', userRoutes);
+app.use('/docs/file', fileRoutes);
 
 // const docRoutes = require('./routes/doc');
 // app.use('/doc', docRoutes);

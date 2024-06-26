@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateFirstName, updateLastName, updateUserName, updateEmail, updateAllData } from '../../reduxSlices/userSlice';
+import { useDispatch } from 'react-redux';
+import { updateAllData } from '../../reduxSlices/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { signup } from '../../functions';
 import './Signup.css';
-
-// const formData = { firstname: "", lastname: "", username: "", email: "", password: "" };
 
 const Signup = () => {
 
@@ -20,12 +18,6 @@ const Signup = () => {
     const [displayError, setDisplayError] = useState({ show: false, message: '' });
 
     const handleSubmit = async (e) => {
-
-        // formData.firstname = firstName;
-        // formData.lastname = lastName;
-        // formData.username = userName;
-        // formData.email = email;
-        // formData.password = password;
 
         e.preventDefault();
 
@@ -42,14 +34,6 @@ const Signup = () => {
             const signupResult = await signup(formData);
             
             if (signupResult.status === 201) {
-                // localStorage.setItem("userEmail", email);
-                // localStorage.setItem("username", signupSuccess.username);
-                // localStorage.setItem("isLoggedIn", true);
-                // localStorage.setItem("userFirstName", signupSuccess.name);
-                // dispatch(updateFirstName(firstName));
-                // dispatch(updateLastName(lastName));
-                // dispatch(updateUserName(username));
-                // dispatch(updateEmail(email));
                 const userFormData = {
                     firstName: firstName,
                     lastName: lastName,

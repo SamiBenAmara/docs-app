@@ -4,6 +4,7 @@ import './FileCard.css';
 
 const FileCard = ({ fileName, fileType }) => {
   
+  // Display a shortened version of the file name if it's too long, otherwise display the full name
   const displayFileName = () => {
 
     if (fileName.length > 10) {
@@ -16,11 +17,9 @@ const FileCard = ({ fileName, fileType }) => {
   
   return (
     <div className="fileCardDiv">
-        <DescriptionIcon style={{ color: 'white', height: '100', width: '100' }}/>
-        <h1 className="fileNameH1">{displayFileName()}</h1>
-        {fileName.length > 10 ? (
-          <h2 className='fileNameH2'>{`(.${fileType})`}</h2>
-        ) : (<></>)}
+      <DescriptionIcon style={{ color: 'white', height: '100', width: '100' }}/>
+      <h1 className="fileNameH1">{displayFileName()}</h1>
+      { fileName.length > 10 && <h2 className='fileNameH2'>{`(.${fileType})`}</h2> }
     </div>
   )
 }
