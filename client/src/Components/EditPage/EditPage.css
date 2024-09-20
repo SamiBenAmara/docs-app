@@ -1,0 +1,171 @@
+.editScreenContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-top: 50px;
+}
+
+.contentHeadersWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+
+.fileHeaderWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 191.83px;
+}
+
+.fileNameWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 128.31px;
+}
+
+.newFileNameWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 128.31px;
+}
+
+.fileEditNameInput {
+    padding: 12px;
+    width: 400px;
+}
+
+.fileEditNameWrapper {
+
+}
+
+.fileEditNameButtonWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 424px;
+    margin-top: 10px;
+}
+
+.fileEditNameButton {
+    width: 190px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: darkblue;
+    color: white;
+    cursor: pointer;
+}
+
+.editFileNameButton {
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    background-color: darkblue;
+    color: white;
+    padding: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 25%;
+}
+
+.headersWrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.headerText {
+    margin-bottom: 0px;
+    font-size: 48px;
+    font-weight: 100;
+}
+
+.headerVertical {
+    border-left: 2px solid grey;
+    height: 75px;
+}
+
+.fileDetailsWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.contentAndButtonsWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 60%;
+}
+
+.fileInfoHeader {
+    font-weight: normal;
+    margin-left: 100px;
+}
+
+.fileDateHeader {
+    font-weight: normal;
+}
+
+.belowHeaderBorder {
+    width: 100%;
+    background-color: #e8e8e8;
+    border: 0;
+    height: 2px;
+}
+
+.editPageContentDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.optionsContainer {
+    width: 20%;
+    height: 100%;
+    margin-left: 50px;
+}
+
+.optionsHeaderContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    height: 191.83px;
+}
+
+.editScreenTextArea {
+    background-color: white;
+    border-radius: 10px;
+    width: 600px;
+    height: 500px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.editScreenImage {
+    object-fit: contain;
+    transition: transform 0.2s;
+    max-height: 500px;
+    max-width: 500px;
+}
+
+.editScreenImage:hover {
+    transform: scale(1.25);
+}
+
+.newFileSearchBar {
+    padding: 20px;
+    width: 600px;
+    border-radius: 50px;
+    border: thin;
+    border-style: solid;
+    font-weight: 100;
+}

@@ -1,0 +1,190 @@
+.welcomeMessageWrapper {
+    width: 95%;
+    margin-left: 2.5%;
+}
+
+.welcomeMessageText {
+    font-size: 60px;
+    font-weight: 100;
+    font-family: auto;
+}
+
+.topSearchWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    z-index: 1000;
+}
+
+.searchWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.homeFileSearchBar {
+    padding: 15px;
+    width: 600px;
+    margin-top: 50px;
+    border-radius: 50px;
+}
+
+.fileGridDiv {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    height: 470px;
+}
+
+.fileGridDiv::-webkit-scrollbar {
+    width: 5px;
+}
+
+.fileGridDiv::-webkit-scrollbar-track {
+    background-color: #e8e8e8;
+}
+
+.fileGridDiv::-webkit-scrollbar-thumb {
+    background-color: grey;
+}
+
+.fileListButton {
+    background-color: rgb(0, 0, 0, 0);
+    border-color: rgb(0, 0, 0, 0);
+}
+
+.fileSearchSuggestionListWrapper {
+    width: 600px;
+    margin-top: 55px;
+    height: 50px;
+    position: absolute;
+}
+
+.fileSearchSuggestionListBox {
+    padding: 15px;
+    background-color: white;
+    border-color: black;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 30px
+}
+
+.fileSearchSuggestionListButton {
+    background-color: white;
+    border: none;
+    font-size: large;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.fileSearchSuggestionListButton:active {
+    opacity: 0.5;
+}
+
+.recycleBinWrapper {
+    width: 100%;
+    height: 300px;
+    border: solid;
+    border-width: 2px;
+    border-color: #e8e8e8;
+    border-radius: 25px;
+}
+
+.recycleBinHeaderWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.myFilesWrapper {
+    width: 45%;
+    border-color: #e8e8e8;
+    border-radius: 25px;
+}
+
+.myFilesHeaderWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.myFilesButtonWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.myFilesDropDownButton {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 100%;
+}
+
+.myFilesDropDownButton:hover {
+    background-color: rgb(0, 0, 0, 0.25);
+}
+
+.myFilesDropDownMenuWrapper {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    border-width: thin;
+    margin-left: 300px;
+    margin-top: 175px;
+    width: 150px;
+    border-radius: 15px;
+    background-color: white;
+}
+
+.myFilesDropDownMenuButton {
+    padding: 15px;
+    border-radius: 15px;
+    border: none;
+    font-size: 15px;
+    font-weight: 100;
+    background-color: white;
+    cursor: pointer;
+}
+
+.myFilesDropDownMenuButton:hover {
+    background-color: rgb(0, 0, 0, 0.25);
+}
+
+.uploadFileInputDropDown {
+    display: none;
+}
+
+.inboxRecycleWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    justify-content: space-between;
+}
+
+.fileDisplayWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 95%;
+    margin-left: 2.5%;
+    height: 625px;
+}
+
+.fileListButtonInteriorWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}

@@ -1,0 +1,72 @@
+.deleteFileOuterMenuWrapper {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.deleteMenuInnerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 400px;
+    width: 700px;
+    background-color: white;
+    border-radius: 30px;
+}
+
+.deleteMenuHeaderContainer {
+    margin-top: 50px;
+}
+
+.deleteFileMenuButtonWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 200px;
+    width: 100%;
+}
+
+.deleteFileMenuSendButton {
+    width: 75%;
+    height: 75px;
+    background-color: blue;
+    border-radius: 30px;
+    color: white;
+    font-size: xx-large;
+    cursor: pointer;
+    border: none;
+}
+
+.deleteFileMenuSendButton:hover {
+    opacity: 0.5;
+}
+
+.deleteFileMenuSendButton:active {
+    opacity: 0.9;
+}
+
+.deleteFileMenuCancelButton {
+    width: 75%;
+    height: 75px;
+    background-color: red;
+    border-radius: 30px;
+    color: white;
+    font-size: xx-large;
+    cursor: pointer;
+    border: none;
+}
+
+.deleteFileMenuCancelButton:hover {
+    opacity: 0.5;
+}
+
+.deleteFileMenuCancelButton:active {
+    opacity: 0.9;
+}

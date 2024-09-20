@@ -1,0 +1,153 @@
+.fileListDisplaySortFilterWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 20%;
+}
+
+.fileListDisplaySortWrapper {
+
+}
+
+.fileListDisplaySortFilterButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    border: none;
+    height: 41px;
+}
+
+.fileListDisplaySortFilterButton:hover {
+    background-color: rgb(0, 0, 0, 0.25);
+}
+
+.fileListDisplaySortOptions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 150px;
+    height: 200px;
+    border: solid;
+    border-width: 1px;
+    background-color: white;
+    position: absolute;
+}
+
+.fileListDisplaySortOptionButton {
+    background-color: white;
+    border: none;
+    padding: 5px;
+    width: 90%;
+    cursor: pointer;
+}
+
+.fileListDisplaySortOptionButton:hover {
+    background-color: rgb(0, 0, 0, 0.25);
+}
+
+.fileListDisplayFilterWrapper {
+
+}
+
+.fileListDisplayFilterOptions {
+    width: 150px;
+    height: 250px;
+    border-style: solid;
+    border-width: 1px;
+    background-color: white;
+    position: absolute;
+    overflow-y: scroll;
+}
+
+.fileListDisplayFilterOptions::-webkit-scrollbar {
+    width: 2.5px;
+}
+
+.fileListDisplayFilterOptions::-webkit-scrollbar-track {
+    background-color: #e8e8e8;
+}
+
+.fileListDisplayFilterOptions::-webkit-scrollbar-thumb {
+    background-color: black;
+}
+
+.fileListDisplayFilterOptionsExtensionList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100px;
+    overflow-y: scroll;
+}
+
+.fileListDisplayFilterOptionsExtensionList::-webkit-scrollbar {
+    width: 2.5px;
+}
+
+.fileListDisplayFilterOptionsExtensionList::-webkit-scrollbar-track {
+    background-color: #e8e8e8;
+}
+
+.fileListDisplayFilterOptionsExtensionList::-webkit-scrollbar-thumb {
+    background-color: grey;
+}
+
+.fileListDisplayFilterOptionsSenderList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100px;
+    overflow-y: scroll;
+}
+
+.fileListDisplayFilterOptionsSenderList::-webkit-scrollbar {
+    width: 2.5px;
+}
+
+.fileListDisplayFilterOptionsSenderList::-webkit-scrollbar-track {
+    background-color: #e8e8e8;
+}
+
+.fileListDisplayFilterHorizontalLine {
+    width: 90%;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.fileListDisplayFilterOptionsHeaderText {
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-weight: 600;
+    margin-left: 5%;
+}
+
+.fileListDisplayFilterOptionsButton {
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+.fileListDisplayFilterOptionsButton:hover {
+    background-color: rgb(0, 0, 0, 0.25);
+}
+
+.fileListDisplayFilterOptionsFileTypeList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100px;
+    overflow-y: scroll;
+}
+
+.fileListDisplayFilterOptionsFileTypeList::-webkit-scrollbar {
+    width: 2.5px;
+}
+
+.fileListDisplayFilterOptionsFileTypeList::-webkit-scrollbar-track {
+    background-color: #e8e8e8;
+}

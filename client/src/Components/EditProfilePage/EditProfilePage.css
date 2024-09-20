@@ -1,0 +1,154 @@
+.mainDivWrapper {
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+}
+
+.mainDiv {
+    padding-top: 5px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.contentDiv {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    width: 700px;
+    border: solid;
+    border-radius: 30px;
+    height: 550px;
+}
+
+.editProfileHeaderWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.topLine {
+    width: 80%;
+    margin-left: 10%;
+}
+
+.itemDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.itemHeaderDiv {
+    width: 50%;
+}
+
+.itemHeader {
+    margin-left: 60px;
+}
+
+.itemInput {
+    border-radius: 30px;
+    margin-left: 60px;
+    padding: 15px;
+}
+
+.editButtonWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 60px;
+}
+
+.editMenuButton {
+    width: 200px;
+    padding: 15px;
+    color: white;
+    background-color: blue;
+    border-radius: 30px;
+    border: none;
+    font-size: large;
+    cursor: pointer;
+}
+
+.editProfileBackButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: none;
+    margin-left: 5%;
+    width: 200px;
+    padding: 15px;
+    font-size: large;
+    cursor: pointer;
+}
+
+.editProfileBackButton:hover {
+    background-color: rgb(0, 0, 0, 0.25);
+}
+
+.editProfileBackButton:active {
+    background-color: rgb(0, 0, 0, 0.5);
+}
+
+.editMenuButton:active {
+    opacity: 0.5;
+}
+
+.verticalLineContainer {
+    height: 600px;
+    width: 10px;
+    background-color: darkblue;
+    border-radius: 15px;
+}
+
+.changePasswordMenuInnerContainer {
+    background-color: white;
+    border: solid;
+    width: 700px;
+    height: 550px;
+    border-radius: 30px;
+}
+
+.changePasswordButtonWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 150px;
+    gap: 100px;
+}
+
+.changePasswordButton {
+    width: 200px;
+    padding: 15px;
+    color: white;
+    background-color: blue;
+    border-radius: 30px;
+    border: none;
+    font-size: large;
+    cursor: pointer;
+}
+
+.changePasswordInput {
+    border-radius: 30px;
+    margin-left: 100px;
+    padding: 15px;
+}
+
+.changePasswordErrorText {
+    margin-left: 60px;
+    color: red;
+}
+
+.changePasswordSuccessText {
+    margin-left: 60px;
+    color: green;
+}
